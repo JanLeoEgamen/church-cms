@@ -2,13 +2,14 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, BookOpen, Calendar, Play, User } from "lucide-react";
 import { SermonCard } from "@/components/public/Cards";
 import { CTASection } from "@/components/public/CTASection";
-import { sermons } from "@/data/church";
+import { sermons, type Sermon } from "@/data/church";
 
 export const Route = createFileRoute("/_public/sermons/$id")({
   loader: ({ params }) => {
     const sermon = sermons.find((s) => s.id === params.id);
     if (!sermon) throw notFound();
-    return { sermon, related: sermons.filter((s) => s.id !== sermon.id).slice(0, 3) };
+    const related: Sermon[] = sermons.filter((x) => x.id !== sermon.id).slice(0, 3);
+    return { sermon, related };
   },
   head: ({ loaderData }) => {
     if (!loaderData) {

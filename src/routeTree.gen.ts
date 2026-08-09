@@ -12,11 +12,14 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as PublicRouteImport } from './routes/_public'
 import { Route as PublicIndexRouteImport } from './routes/_public.index'
 import { Route as PublicAboutRouteImport } from './routes/_public.about'
+import { Route as PublicAnnouncementsRouteImport } from './routes/_public.announcements'
+import { Route as PublicContactRouteImport } from './routes/_public.contact'
 import { Route as PublicEventsIndexRouteImport } from './routes/_public.events.index'
 import { Route as PublicEventsIdRouteImport } from './routes/_public.events.$id'
 import { Route as PublicMinistriesIndexRouteImport } from './routes/_public.ministries.index'
 import { Route as PublicMinistriesIdRouteImport } from './routes/_public.ministries.$id'
 import { Route as PublicSermonsIndexRouteImport } from './routes/_public.sermons.index'
+import { Route as PublicSermonsIdRouteImport } from './routes/_public.sermons.$id'
 
 const PublicRoute = PublicRouteImport.update({
   id: '/_public',
@@ -30,6 +33,16 @@ const PublicIndexRoute = PublicIndexRouteImport.update({
 const PublicAboutRoute = PublicAboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicAnnouncementsRoute = PublicAnnouncementsRouteImport.update({
+  id: '/announcements',
+  path: '/announcements',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicContactRoute = PublicContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
   getParentRoute: () => PublicRoute,
 } as any)
 const PublicEventsIndexRoute = PublicEventsIndexRouteImport.update({
@@ -57,21 +70,32 @@ const PublicSermonsIndexRoute = PublicSermonsIndexRouteImport.update({
   path: '/sermons/',
   getParentRoute: () => PublicRoute,
 } as any)
+const PublicSermonsIdRoute = PublicSermonsIdRouteImport.update({
+  id: '/sermons/$id',
+  path: '/sermons/$id',
+  getParentRoute: () => PublicRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof PublicIndexRoute
   '/about': typeof PublicAboutRoute
+  '/announcements': typeof PublicAnnouncementsRoute
+  '/contact': typeof PublicContactRoute
   '/events/$id': typeof PublicEventsIdRoute
   '/ministries/$id': typeof PublicMinistriesIdRoute
+  '/sermons/$id': typeof PublicSermonsIdRoute
   '/events/': typeof PublicEventsIndexRoute
   '/ministries/': typeof PublicMinistriesIndexRoute
   '/sermons/': typeof PublicSermonsIndexRoute
 }
 export interface FileRoutesByTo {
   '/about': typeof PublicAboutRoute
+  '/announcements': typeof PublicAnnouncementsRoute
+  '/contact': typeof PublicContactRoute
   '/': typeof PublicIndexRoute
   '/events/$id': typeof PublicEventsIdRoute
   '/ministries/$id': typeof PublicMinistriesIdRoute
+  '/sermons/$id': typeof PublicSermonsIdRoute
   '/events': typeof PublicEventsIndexRoute
   '/ministries': typeof PublicMinistriesIndexRoute
   '/sermons': typeof PublicSermonsIndexRoute
@@ -80,9 +104,12 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_public': typeof PublicRouteWithChildren
   '/_public/about': typeof PublicAboutRoute
+  '/_public/announcements': typeof PublicAnnouncementsRoute
+  '/_public/contact': typeof PublicContactRoute
   '/_public/': typeof PublicIndexRoute
   '/_public/events/$id': typeof PublicEventsIdRoute
   '/_public/ministries/$id': typeof PublicMinistriesIdRoute
+  '/_public/sermons/$id': typeof PublicSermonsIdRoute
   '/_public/events/': typeof PublicEventsIndexRoute
   '/_public/ministries/': typeof PublicMinistriesIndexRoute
   '/_public/sermons/': typeof PublicSermonsIndexRoute
@@ -92,17 +119,23 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/announcements'
+    | '/contact'
     | '/events/$id'
     | '/ministries/$id'
+    | '/sermons/$id'
     | '/events/'
     | '/ministries/'
     | '/sermons/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/about'
+    | '/announcements'
+    | '/contact'
     | '/'
     | '/events/$id'
     | '/ministries/$id'
+    | '/sermons/$id'
     | '/events'
     | '/ministries'
     | '/sermons'
@@ -110,9 +143,12 @@ export interface FileRouteTypes {
     | '__root__'
     | '/_public'
     | '/_public/about'
+    | '/_public/announcements'
+    | '/_public/contact'
     | '/_public/'
     | '/_public/events/$id'
     | '/_public/ministries/$id'
+    | '/_public/sermons/$id'
     | '/_public/events/'
     | '/_public/ministries/'
     | '/_public/sermons/'
@@ -143,6 +179,20 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof PublicAboutRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/announcements': {
+      id: '/_public/announcements'
+      path: '/announcements'
+      fullPath: '/announcements'
+      preLoaderRoute: typeof PublicAnnouncementsRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/contact': {
+      id: '/_public/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof PublicContactRouteImport
       parentRoute: typeof PublicRoute
     }
     '/_public/events/': {
@@ -180,14 +230,24 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicSermonsIndexRouteImport
       parentRoute: typeof PublicRoute
     }
+    '/_public/sermons/$id': {
+      id: '/_public/sermons/$id'
+      path: '/sermons/$id'
+      fullPath: '/sermons/$id'
+      preLoaderRoute: typeof PublicSermonsIdRouteImport
+      parentRoute: typeof PublicRoute
+    }
   }
 }
 
 interface PublicRouteChildren {
   PublicAboutRoute: typeof PublicAboutRoute
+  PublicAnnouncementsRoute: typeof PublicAnnouncementsRoute
+  PublicContactRoute: typeof PublicContactRoute
   PublicIndexRoute: typeof PublicIndexRoute
   PublicEventsIdRoute: typeof PublicEventsIdRoute
   PublicMinistriesIdRoute: typeof PublicMinistriesIdRoute
+  PublicSermonsIdRoute: typeof PublicSermonsIdRoute
   PublicEventsIndexRoute: typeof PublicEventsIndexRoute
   PublicMinistriesIndexRoute: typeof PublicMinistriesIndexRoute
   PublicSermonsIndexRoute: typeof PublicSermonsIndexRoute
@@ -195,9 +255,12 @@ interface PublicRouteChildren {
 
 const PublicRouteChildren: PublicRouteChildren = {
   PublicAboutRoute: PublicAboutRoute,
+  PublicAnnouncementsRoute: PublicAnnouncementsRoute,
+  PublicContactRoute: PublicContactRoute,
   PublicIndexRoute: PublicIndexRoute,
   PublicEventsIdRoute: PublicEventsIdRoute,
   PublicMinistriesIdRoute: PublicMinistriesIdRoute,
+  PublicSermonsIdRoute: PublicSermonsIdRoute,
   PublicEventsIndexRoute: PublicEventsIndexRoute,
   PublicMinistriesIndexRoute: PublicMinistriesIndexRoute,
   PublicSermonsIndexRoute: PublicSermonsIndexRoute,
