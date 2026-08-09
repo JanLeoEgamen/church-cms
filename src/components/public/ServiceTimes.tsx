@@ -17,7 +17,7 @@ export function ServiceTimes() {
         />
         <div className="mt-14 grid gap-6 md:grid-cols-3">
           {serviceTimes.map((service, i) => {
-            const Icon = icons[i % icons.length];
+            const Icon = icons[i % icons.length]!;
             return (
               <div key={service.id} className="surface-card hover-lift p-8 text-center">
                 <span className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-accent/12 text-accent">
