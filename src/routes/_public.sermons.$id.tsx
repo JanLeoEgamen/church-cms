@@ -85,7 +85,7 @@ function SermonDetail() {
       <section className="mx-auto max-w-7xl px-5 pb-8 lg:px-8">
         <h2 className="text-3xl font-semibold">Related Sermons</h2>
         <div className="mt-10 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {related.map((s) => (
+          {related.map((s: Sermon) => (
             <SermonCard key={s.id} sermon={s} />
           ))}
         </div>
