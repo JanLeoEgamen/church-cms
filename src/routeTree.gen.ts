@@ -12,7 +12,11 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as PublicRouteImport } from './routes/_public'
 import { Route as PublicIndexRouteImport } from './routes/_public.index'
 import { Route as PublicAboutRouteImport } from './routes/_public.about'
+import { Route as PublicEventsIndexRouteImport } from './routes/_public.events.index'
+import { Route as PublicEventsIdRouteImport } from './routes/_public.events.$id'
 import { Route as PublicMinistriesIndexRouteImport } from './routes/_public.ministries.index'
+import { Route as PublicMinistriesIdRouteImport } from './routes/_public.ministries.$id'
+import { Route as PublicSermonsIndexRouteImport } from './routes/_public.sermons.index'
 
 const PublicRoute = PublicRouteImport.update({
   id: '/_public',
@@ -28,40 +32,90 @@ const PublicAboutRoute = PublicAboutRouteImport.update({
   path: '/about',
   getParentRoute: () => PublicRoute,
 } as any)
+const PublicEventsIndexRoute = PublicEventsIndexRouteImport.update({
+  id: '/events/',
+  path: '/events/',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicEventsIdRoute = PublicEventsIdRouteImport.update({
+  id: '/events/$id',
+  path: '/events/$id',
+  getParentRoute: () => PublicRoute,
+} as any)
 const PublicMinistriesIndexRoute = PublicMinistriesIndexRouteImport.update({
   id: '/ministries/',
   path: '/ministries/',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicMinistriesIdRoute = PublicMinistriesIdRouteImport.update({
+  id: '/ministries/$id',
+  path: '/ministries/$id',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicSermonsIndexRoute = PublicSermonsIndexRouteImport.update({
+  id: '/sermons/',
+  path: '/sermons/',
   getParentRoute: () => PublicRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof PublicIndexRoute
   '/about': typeof PublicAboutRoute
+  '/events/$id': typeof PublicEventsIdRoute
+  '/ministries/$id': typeof PublicMinistriesIdRoute
+  '/events/': typeof PublicEventsIndexRoute
   '/ministries/': typeof PublicMinistriesIndexRoute
+  '/sermons/': typeof PublicSermonsIndexRoute
 }
 export interface FileRoutesByTo {
   '/about': typeof PublicAboutRoute
   '/': typeof PublicIndexRoute
+  '/events/$id': typeof PublicEventsIdRoute
+  '/ministries/$id': typeof PublicMinistriesIdRoute
+  '/events': typeof PublicEventsIndexRoute
   '/ministries': typeof PublicMinistriesIndexRoute
+  '/sermons': typeof PublicSermonsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_public': typeof PublicRouteWithChildren
   '/_public/about': typeof PublicAboutRoute
   '/_public/': typeof PublicIndexRoute
+  '/_public/events/$id': typeof PublicEventsIdRoute
+  '/_public/ministries/$id': typeof PublicMinistriesIdRoute
+  '/_public/events/': typeof PublicEventsIndexRoute
   '/_public/ministries/': typeof PublicMinistriesIndexRoute
+  '/_public/sermons/': typeof PublicSermonsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/ministries/'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/events/$id'
+    | '/ministries/$id'
+    | '/events/'
+    | '/ministries/'
+    | '/sermons/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/about' | '/' | '/ministries'
+  to:
+    | '/about'
+    | '/'
+    | '/events/$id'
+    | '/ministries/$id'
+    | '/events'
+    | '/ministries'
+    | '/sermons'
   id:
     | '__root__'
     | '/_public'
     | '/_public/about'
     | '/_public/'
+    | '/_public/events/$id'
+    | '/_public/ministries/$id'
+    | '/_public/events/'
     | '/_public/ministries/'
+    | '/_public/sermons/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -91,11 +145,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicAboutRouteImport
       parentRoute: typeof PublicRoute
     }
+    '/_public/events/': {
+      id: '/_public/events/'
+      path: '/events'
+      fullPath: '/events/'
+      preLoaderRoute: typeof PublicEventsIndexRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/events/$id': {
+      id: '/_public/events/$id'
+      path: '/events/$id'
+      fullPath: '/events/$id'
+      preLoaderRoute: typeof PublicEventsIdRouteImport
+      parentRoute: typeof PublicRoute
+    }
     '/_public/ministries/': {
       id: '/_public/ministries/'
       path: '/ministries'
       fullPath: '/ministries/'
       preLoaderRoute: typeof PublicMinistriesIndexRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/ministries/$id': {
+      id: '/_public/ministries/$id'
+      path: '/ministries/$id'
+      fullPath: '/ministries/$id'
+      preLoaderRoute: typeof PublicMinistriesIdRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/sermons/': {
+      id: '/_public/sermons/'
+      path: '/sermons'
+      fullPath: '/sermons/'
+      preLoaderRoute: typeof PublicSermonsIndexRouteImport
       parentRoute: typeof PublicRoute
     }
   }
@@ -104,13 +186,21 @@ declare module '@tanstack/react-router' {
 interface PublicRouteChildren {
   PublicAboutRoute: typeof PublicAboutRoute
   PublicIndexRoute: typeof PublicIndexRoute
+  PublicEventsIdRoute: typeof PublicEventsIdRoute
+  PublicMinistriesIdRoute: typeof PublicMinistriesIdRoute
+  PublicEventsIndexRoute: typeof PublicEventsIndexRoute
   PublicMinistriesIndexRoute: typeof PublicMinistriesIndexRoute
+  PublicSermonsIndexRoute: typeof PublicSermonsIndexRoute
 }
 
 const PublicRouteChildren: PublicRouteChildren = {
   PublicAboutRoute: PublicAboutRoute,
   PublicIndexRoute: PublicIndexRoute,
+  PublicEventsIdRoute: PublicEventsIdRoute,
+  PublicMinistriesIdRoute: PublicMinistriesIdRoute,
+  PublicEventsIndexRoute: PublicEventsIndexRoute,
   PublicMinistriesIndexRoute: PublicMinistriesIndexRoute,
+  PublicSermonsIndexRoute: PublicSermonsIndexRoute,
 }
 
 const PublicRouteWithChildren =
