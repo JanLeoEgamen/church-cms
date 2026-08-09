@@ -9,61 +9,542 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
+import { Route as PublicRouteImport } from './routes/_public'
+import { Route as PublicIndexRouteImport } from './routes/_public.index'
+import { Route as PublicAboutRouteImport } from './routes/_public.about'
+import { Route as PublicAnnouncementsRouteImport } from './routes/_public.announcements'
+import { Route as PublicContactRouteImport } from './routes/_public.contact'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as AdminAnnouncementsRouteImport } from './routes/admin.announcements'
+import { Route as AdminEventsRouteImport } from './routes/admin.events'
+import { Route as AdminLeadershipRouteImport } from './routes/admin.leadership'
+import { Route as AdminLoginRouteImport } from './routes/admin.login'
+import { Route as AdminMediaRouteImport } from './routes/admin.media'
+import { Route as AdminMinistriesRouteImport } from './routes/admin.ministries'
+import { Route as AdminSermonsRouteImport } from './routes/admin.sermons'
+import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
+import { Route as AdminTestimonialsRouteImport } from './routes/admin.testimonials'
+import { Route as PublicEventsIndexRouteImport } from './routes/_public.events.index'
+import { Route as PublicEventsIdRouteImport } from './routes/_public.events.$id'
+import { Route as PublicMinistriesIndexRouteImport } from './routes/_public.ministries.index'
+import { Route as PublicMinistriesIdRouteImport } from './routes/_public.ministries.$id'
+import { Route as PublicSermonsIndexRouteImport } from './routes/_public.sermons.index'
+import { Route as PublicSermonsIdRouteImport } from './routes/_public.sermons.$id'
+import { Route as AdminContentAboutRouteImport } from './routes/admin.content.about'
+import { Route as AdminContentContactRouteImport } from './routes/admin.content.contact'
+import { Route as AdminContentHomeRouteImport } from './routes/admin.content.home'
 
-const IndexRoute = IndexRouteImport.update({
+const PublicRoute = PublicRouteImport.update({
+  id: '/_public',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PublicIndexRoute = PublicIndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicAboutRoute = PublicAboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicAnnouncementsRoute = PublicAnnouncementsRouteImport.update({
+  id: '/announcements',
+  path: '/announcements',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicContactRoute = PublicContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => PublicRoute,
+} as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/admin/',
+  path: '/admin/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminAnnouncementsRoute = AdminAnnouncementsRouteImport.update({
+  id: '/admin/announcements',
+  path: '/admin/announcements',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminEventsRoute = AdminEventsRouteImport.update({
+  id: '/admin/events',
+  path: '/admin/events',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminLeadershipRoute = AdminLeadershipRouteImport.update({
+  id: '/admin/leadership',
+  path: '/admin/leadership',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminLoginRoute = AdminLoginRouteImport.update({
+  id: '/admin/login',
+  path: '/admin/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminMediaRoute = AdminMediaRouteImport.update({
+  id: '/admin/media',
+  path: '/admin/media',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminMinistriesRoute = AdminMinistriesRouteImport.update({
+  id: '/admin/ministries',
+  path: '/admin/ministries',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminSermonsRoute = AdminSermonsRouteImport.update({
+  id: '/admin/sermons',
+  path: '/admin/sermons',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminSettingsRoute = AdminSettingsRouteImport.update({
+  id: '/admin/settings',
+  path: '/admin/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminTestimonialsRoute = AdminTestimonialsRouteImport.update({
+  id: '/admin/testimonials',
+  path: '/admin/testimonials',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PublicEventsIndexRoute = PublicEventsIndexRouteImport.update({
+  id: '/events/',
+  path: '/events/',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicEventsIdRoute = PublicEventsIdRouteImport.update({
+  id: '/events/$id',
+  path: '/events/$id',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicMinistriesIndexRoute = PublicMinistriesIndexRouteImport.update({
+  id: '/ministries/',
+  path: '/ministries/',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicMinistriesIdRoute = PublicMinistriesIdRouteImport.update({
+  id: '/ministries/$id',
+  path: '/ministries/$id',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicSermonsIndexRoute = PublicSermonsIndexRouteImport.update({
+  id: '/sermons/',
+  path: '/sermons/',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicSermonsIdRoute = PublicSermonsIdRouteImport.update({
+  id: '/sermons/$id',
+  path: '/sermons/$id',
+  getParentRoute: () => PublicRoute,
+} as any)
+const AdminContentAboutRoute = AdminContentAboutRouteImport.update({
+  id: '/admin/content/about',
+  path: '/admin/content/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminContentContactRoute = AdminContentContactRouteImport.update({
+  id: '/admin/content/contact',
+  path: '/admin/content/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminContentHomeRoute = AdminContentHomeRouteImport.update({
+  id: '/admin/content/home',
+  path: '/admin/content/home',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
+  '/': typeof PublicIndexRoute
+  '/about': typeof PublicAboutRoute
+  '/announcements': typeof PublicAnnouncementsRoute
+  '/contact': typeof PublicContactRoute
+  '/admin/announcements': typeof AdminAnnouncementsRoute
+  '/admin/events': typeof AdminEventsRoute
+  '/admin/leadership': typeof AdminLeadershipRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/admin/media': typeof AdminMediaRoute
+  '/admin/ministries': typeof AdminMinistriesRoute
+  '/admin/sermons': typeof AdminSermonsRoute
+  '/admin/settings': typeof AdminSettingsRoute
+  '/admin/testimonials': typeof AdminTestimonialsRoute
+  '/admin/': typeof AdminIndexRoute
+  '/events/$id': typeof PublicEventsIdRoute
+  '/ministries/$id': typeof PublicMinistriesIdRoute
+  '/sermons/$id': typeof PublicSermonsIdRoute
+  '/admin/content/about': typeof AdminContentAboutRoute
+  '/admin/content/contact': typeof AdminContentContactRoute
+  '/admin/content/home': typeof AdminContentHomeRoute
+  '/events/': typeof PublicEventsIndexRoute
+  '/ministries/': typeof PublicMinistriesIndexRoute
+  '/sermons/': typeof PublicSermonsIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
+  '/about': typeof PublicAboutRoute
+  '/announcements': typeof PublicAnnouncementsRoute
+  '/contact': typeof PublicContactRoute
+  '/admin/announcements': typeof AdminAnnouncementsRoute
+  '/admin/events': typeof AdminEventsRoute
+  '/admin/leadership': typeof AdminLeadershipRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/admin/media': typeof AdminMediaRoute
+  '/admin/ministries': typeof AdminMinistriesRoute
+  '/admin/sermons': typeof AdminSermonsRoute
+  '/admin/settings': typeof AdminSettingsRoute
+  '/admin/testimonials': typeof AdminTestimonialsRoute
+  '/': typeof PublicIndexRoute
+  '/admin': typeof AdminIndexRoute
+  '/events/$id': typeof PublicEventsIdRoute
+  '/ministries/$id': typeof PublicMinistriesIdRoute
+  '/sermons/$id': typeof PublicSermonsIdRoute
+  '/admin/content/about': typeof AdminContentAboutRoute
+  '/admin/content/contact': typeof AdminContentContactRoute
+  '/admin/content/home': typeof AdminContentHomeRoute
+  '/events': typeof PublicEventsIndexRoute
+  '/ministries': typeof PublicMinistriesIndexRoute
+  '/sermons': typeof PublicSermonsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
+  '/_public': typeof PublicRouteWithChildren
+  '/_public/about': typeof PublicAboutRoute
+  '/_public/announcements': typeof PublicAnnouncementsRoute
+  '/_public/contact': typeof PublicContactRoute
+  '/admin/announcements': typeof AdminAnnouncementsRoute
+  '/admin/events': typeof AdminEventsRoute
+  '/admin/leadership': typeof AdminLeadershipRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/admin/media': typeof AdminMediaRoute
+  '/admin/ministries': typeof AdminMinistriesRoute
+  '/admin/sermons': typeof AdminSermonsRoute
+  '/admin/settings': typeof AdminSettingsRoute
+  '/admin/testimonials': typeof AdminTestimonialsRoute
+  '/_public/': typeof PublicIndexRoute
+  '/admin/': typeof AdminIndexRoute
+  '/_public/events/$id': typeof PublicEventsIdRoute
+  '/_public/ministries/$id': typeof PublicMinistriesIdRoute
+  '/_public/sermons/$id': typeof PublicSermonsIdRoute
+  '/admin/content/about': typeof AdminContentAboutRoute
+  '/admin/content/contact': typeof AdminContentContactRoute
+  '/admin/content/home': typeof AdminContentHomeRoute
+  '/_public/events/': typeof PublicEventsIndexRoute
+  '/_public/ministries/': typeof PublicMinistriesIndexRoute
+  '/_public/sermons/': typeof PublicSermonsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/announcements'
+    | '/contact'
+    | '/admin/announcements'
+    | '/admin/events'
+    | '/admin/leadership'
+    | '/admin/login'
+    | '/admin/media'
+    | '/admin/ministries'
+    | '/admin/sermons'
+    | '/admin/settings'
+    | '/admin/testimonials'
+    | '/admin/'
+    | '/events/$id'
+    | '/ministries/$id'
+    | '/sermons/$id'
+    | '/admin/content/about'
+    | '/admin/content/contact'
+    | '/admin/content/home'
+    | '/events/'
+    | '/ministries/'
+    | '/sermons/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/about'
+    | '/announcements'
+    | '/contact'
+    | '/admin/announcements'
+    | '/admin/events'
+    | '/admin/leadership'
+    | '/admin/login'
+    | '/admin/media'
+    | '/admin/ministries'
+    | '/admin/sermons'
+    | '/admin/settings'
+    | '/admin/testimonials'
+    | '/'
+    | '/admin'
+    | '/events/$id'
+    | '/ministries/$id'
+    | '/sermons/$id'
+    | '/admin/content/about'
+    | '/admin/content/contact'
+    | '/admin/content/home'
+    | '/events'
+    | '/ministries'
+    | '/sermons'
+  id:
+    | '__root__'
+    | '/_public'
+    | '/_public/about'
+    | '/_public/announcements'
+    | '/_public/contact'
+    | '/admin/announcements'
+    | '/admin/events'
+    | '/admin/leadership'
+    | '/admin/login'
+    | '/admin/media'
+    | '/admin/ministries'
+    | '/admin/sermons'
+    | '/admin/settings'
+    | '/admin/testimonials'
+    | '/_public/'
+    | '/admin/'
+    | '/_public/events/$id'
+    | '/_public/ministries/$id'
+    | '/_public/sermons/$id'
+    | '/admin/content/about'
+    | '/admin/content/contact'
+    | '/admin/content/home'
+    | '/_public/events/'
+    | '/_public/ministries/'
+    | '/_public/sermons/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
+  PublicRoute: typeof PublicRouteWithChildren
+  AdminAnnouncementsRoute: typeof AdminAnnouncementsRoute
+  AdminEventsRoute: typeof AdminEventsRoute
+  AdminLeadershipRoute: typeof AdminLeadershipRoute
+  AdminLoginRoute: typeof AdminLoginRoute
+  AdminMediaRoute: typeof AdminMediaRoute
+  AdminMinistriesRoute: typeof AdminMinistriesRoute
+  AdminSermonsRoute: typeof AdminSermonsRoute
+  AdminSettingsRoute: typeof AdminSettingsRoute
+  AdminTestimonialsRoute: typeof AdminTestimonialsRoute
+  AdminIndexRoute: typeof AdminIndexRoute
+  AdminContentAboutRoute: typeof AdminContentAboutRoute
+  AdminContentContactRoute: typeof AdminContentContactRoute
+  AdminContentHomeRoute: typeof AdminContentHomeRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
+    '/_public': {
+      id: '/_public'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof PublicRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_public/': {
+      id: '/_public/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+      preLoaderRoute: typeof PublicIndexRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/about': {
+      id: '/_public/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof PublicAboutRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/announcements': {
+      id: '/_public/announcements'
+      path: '/announcements'
+      fullPath: '/announcements'
+      preLoaderRoute: typeof PublicAnnouncementsRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/contact': {
+      id: '/_public/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof PublicContactRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/admin/': {
+      id: '/admin/'
+      path: '/admin'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/announcements': {
+      id: '/admin/announcements'
+      path: '/admin/announcements'
+      fullPath: '/admin/announcements'
+      preLoaderRoute: typeof AdminAnnouncementsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/events': {
+      id: '/admin/events'
+      path: '/admin/events'
+      fullPath: '/admin/events'
+      preLoaderRoute: typeof AdminEventsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/leadership': {
+      id: '/admin/leadership'
+      path: '/admin/leadership'
+      fullPath: '/admin/leadership'
+      preLoaderRoute: typeof AdminLeadershipRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/login': {
+      id: '/admin/login'
+      path: '/admin/login'
+      fullPath: '/admin/login'
+      preLoaderRoute: typeof AdminLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/media': {
+      id: '/admin/media'
+      path: '/admin/media'
+      fullPath: '/admin/media'
+      preLoaderRoute: typeof AdminMediaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/ministries': {
+      id: '/admin/ministries'
+      path: '/admin/ministries'
+      fullPath: '/admin/ministries'
+      preLoaderRoute: typeof AdminMinistriesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/sermons': {
+      id: '/admin/sermons'
+      path: '/admin/sermons'
+      fullPath: '/admin/sermons'
+      preLoaderRoute: typeof AdminSermonsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/settings': {
+      id: '/admin/settings'
+      path: '/admin/settings'
+      fullPath: '/admin/settings'
+      preLoaderRoute: typeof AdminSettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/testimonials': {
+      id: '/admin/testimonials'
+      path: '/admin/testimonials'
+      fullPath: '/admin/testimonials'
+      preLoaderRoute: typeof AdminTestimonialsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_public/events/': {
+      id: '/_public/events/'
+      path: '/events'
+      fullPath: '/events/'
+      preLoaderRoute: typeof PublicEventsIndexRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/events/$id': {
+      id: '/_public/events/$id'
+      path: '/events/$id'
+      fullPath: '/events/$id'
+      preLoaderRoute: typeof PublicEventsIdRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/ministries/': {
+      id: '/_public/ministries/'
+      path: '/ministries'
+      fullPath: '/ministries/'
+      preLoaderRoute: typeof PublicMinistriesIndexRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/ministries/$id': {
+      id: '/_public/ministries/$id'
+      path: '/ministries/$id'
+      fullPath: '/ministries/$id'
+      preLoaderRoute: typeof PublicMinistriesIdRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/sermons/': {
+      id: '/_public/sermons/'
+      path: '/sermons'
+      fullPath: '/sermons/'
+      preLoaderRoute: typeof PublicSermonsIndexRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/sermons/$id': {
+      id: '/_public/sermons/$id'
+      path: '/sermons/$id'
+      fullPath: '/sermons/$id'
+      preLoaderRoute: typeof PublicSermonsIdRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/admin/content/about': {
+      id: '/admin/content/about'
+      path: '/admin/content/about'
+      fullPath: '/admin/content/about'
+      preLoaderRoute: typeof AdminContentAboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/content/contact': {
+      id: '/admin/content/contact'
+      path: '/admin/content/contact'
+      fullPath: '/admin/content/contact'
+      preLoaderRoute: typeof AdminContentContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/content/home': {
+      id: '/admin/content/home'
+      path: '/admin/content/home'
+      fullPath: '/admin/content/home'
+      preLoaderRoute: typeof AdminContentHomeRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
 }
 
+interface PublicRouteChildren {
+  PublicAboutRoute: typeof PublicAboutRoute
+  PublicAnnouncementsRoute: typeof PublicAnnouncementsRoute
+  PublicContactRoute: typeof PublicContactRoute
+  PublicIndexRoute: typeof PublicIndexRoute
+  PublicEventsIdRoute: typeof PublicEventsIdRoute
+  PublicMinistriesIdRoute: typeof PublicMinistriesIdRoute
+  PublicSermonsIdRoute: typeof PublicSermonsIdRoute
+  PublicEventsIndexRoute: typeof PublicEventsIndexRoute
+  PublicMinistriesIndexRoute: typeof PublicMinistriesIndexRoute
+  PublicSermonsIndexRoute: typeof PublicSermonsIndexRoute
+}
+
+const PublicRouteChildren: PublicRouteChildren = {
+  PublicAboutRoute: PublicAboutRoute,
+  PublicAnnouncementsRoute: PublicAnnouncementsRoute,
+  PublicContactRoute: PublicContactRoute,
+  PublicIndexRoute: PublicIndexRoute,
+  PublicEventsIdRoute: PublicEventsIdRoute,
+  PublicMinistriesIdRoute: PublicMinistriesIdRoute,
+  PublicSermonsIdRoute: PublicSermonsIdRoute,
+  PublicEventsIndexRoute: PublicEventsIndexRoute,
+  PublicMinistriesIndexRoute: PublicMinistriesIndexRoute,
+  PublicSermonsIndexRoute: PublicSermonsIndexRoute,
+}
+
+const PublicRouteWithChildren =
+  PublicRoute._addFileChildren(PublicRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
+  PublicRoute: PublicRouteWithChildren,
+  AdminAnnouncementsRoute: AdminAnnouncementsRoute,
+  AdminEventsRoute: AdminEventsRoute,
+  AdminLeadershipRoute: AdminLeadershipRoute,
+  AdminLoginRoute: AdminLoginRoute,
+  AdminMediaRoute: AdminMediaRoute,
+  AdminMinistriesRoute: AdminMinistriesRoute,
+  AdminSermonsRoute: AdminSermonsRoute,
+  AdminSettingsRoute: AdminSettingsRoute,
+  AdminTestimonialsRoute: AdminTestimonialsRoute,
+  AdminIndexRoute: AdminIndexRoute,
+  AdminContentAboutRoute: AdminContentAboutRoute,
+  AdminContentContactRoute: AdminContentContactRoute,
+  AdminContentHomeRoute: AdminContentHomeRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
