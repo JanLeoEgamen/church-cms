@@ -9,27 +9,116 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as PublicRouteImport } from './routes/_public'
+import { Route as PublicIndexRouteImport } from './routes/_public.index'
+import { Route as PublicAboutRouteImport } from './routes/_public.about'
+import { Route as PublicMinistriesIndexRouteImport } from './routes/_public.ministries.index'
 
-export interface FileRoutesByFullPath {}
-export interface FileRoutesByTo {}
+const PublicRoute = PublicRouteImport.update({
+  id: '/_public',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PublicIndexRoute = PublicIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicAboutRoute = PublicAboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicMinistriesIndexRoute = PublicMinistriesIndexRouteImport.update({
+  id: '/ministries/',
+  path: '/ministries/',
+  getParentRoute: () => PublicRoute,
+} as any)
+
+export interface FileRoutesByFullPath {
+  '/': typeof PublicIndexRoute
+  '/about': typeof PublicAboutRoute
+  '/ministries/': typeof PublicMinistriesIndexRoute
+}
+export interface FileRoutesByTo {
+  '/about': typeof PublicAboutRoute
+  '/': typeof PublicIndexRoute
+  '/ministries': typeof PublicMinistriesIndexRoute
+}
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
+  '/_public': typeof PublicRouteWithChildren
+  '/_public/about': typeof PublicAboutRoute
+  '/_public/': typeof PublicIndexRoute
+  '/_public/ministries/': typeof PublicMinistriesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: never
+  fullPaths: '/' | '/about' | '/ministries/'
   fileRoutesByTo: FileRoutesByTo
-  to: never
-  id: '__root__'
+  to: '/about' | '/' | '/ministries'
+  id:
+    | '__root__'
+    | '/_public'
+    | '/_public/about'
+    | '/_public/'
+    | '/_public/ministries/'
   fileRoutesById: FileRoutesById
 }
-export interface RootRouteChildren {}
-
-declare module '@tanstack/react-router' {
-  interface FileRoutesByPath {}
+export interface RootRouteChildren {
+  PublicRoute: typeof PublicRouteWithChildren
 }
 
-const rootRouteChildren: RootRouteChildren = {}
+declare module '@tanstack/react-router' {
+  interface FileRoutesByPath {
+    '/_public': {
+      id: '/_public'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof PublicRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_public/': {
+      id: '/_public/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof PublicIndexRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/about': {
+      id: '/_public/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof PublicAboutRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/ministries/': {
+      id: '/_public/ministries/'
+      path: '/ministries'
+      fullPath: '/ministries/'
+      preLoaderRoute: typeof PublicMinistriesIndexRouteImport
+      parentRoute: typeof PublicRoute
+    }
+  }
+}
+
+interface PublicRouteChildren {
+  PublicAboutRoute: typeof PublicAboutRoute
+  PublicIndexRoute: typeof PublicIndexRoute
+  PublicMinistriesIndexRoute: typeof PublicMinistriesIndexRoute
+}
+
+const PublicRouteChildren: PublicRouteChildren = {
+  PublicAboutRoute: PublicAboutRoute,
+  PublicIndexRoute: PublicIndexRoute,
+  PublicMinistriesIndexRoute: PublicMinistriesIndexRoute,
+}
+
+const PublicRouteWithChildren =
+  PublicRoute._addFileChildren(PublicRouteChildren)
+
+const rootRouteChildren: RootRouteChildren = {
+  PublicRoute: PublicRouteWithChildren,
+}
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
