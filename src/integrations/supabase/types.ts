@@ -14,16 +14,783 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      about_content: {
+        Row: {
+          about_image_url: string | null
+          church_story: string | null
+          created_at: string
+          id: string
+          introduction: string | null
+          mission: string | null
+          page_title: string | null
+          updated_at: string
+          vision: string | null
+        }
+        Insert: {
+          about_image_url?: string | null
+          church_story?: string | null
+          created_at?: string
+          id?: string
+          introduction?: string | null
+          mission?: string | null
+          page_title?: string | null
+          updated_at?: string
+          vision?: string | null
+        }
+        Update: {
+          about_image_url?: string | null
+          church_story?: string | null
+          created_at?: string
+          id?: string
+          introduction?: string | null
+          mission?: string | null
+          page_title?: string | null
+          updated_at?: string
+          vision?: string | null
+        }
+        Relationships: []
+      }
+      announcements: {
+        Row: {
+          content: string | null
+          created_at: string
+          created_by: string | null
+          id: string
+          image_url: string | null
+          is_featured: boolean
+          publish_date: string
+          slug: string
+          status: string
+          summary: string | null
+          title: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          content?: string | null
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          image_url?: string | null
+          is_featured?: boolean
+          publish_date?: string
+          slug: string
+          status?: string
+          summary?: string | null
+          title: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          content?: string | null
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          image_url?: string | null
+          is_featured?: boolean
+          publish_date?: string
+          slug?: string
+          status?: string
+          summary?: string | null
+          title?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "announcements_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "announcements_updated_by_fkey"
+            columns: ["updated_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      church_settings: {
+        Row: {
+          address: string | null
+          church_name: string | null
+          created_at: string
+          email: string | null
+          facebook_url: string | null
+          favicon_url: string | null
+          google_maps_url: string | null
+          id: string
+          instagram_url: string | null
+          logo_url: string | null
+          office_hours: string | null
+          phone: string | null
+          updated_at: string
+          website_description: string | null
+          website_title: string | null
+          youtube_url: string | null
+        }
+        Insert: {
+          address?: string | null
+          church_name?: string | null
+          created_at?: string
+          email?: string | null
+          facebook_url?: string | null
+          favicon_url?: string | null
+          google_maps_url?: string | null
+          id?: string
+          instagram_url?: string | null
+          logo_url?: string | null
+          office_hours?: string | null
+          phone?: string | null
+          updated_at?: string
+          website_description?: string | null
+          website_title?: string | null
+          youtube_url?: string | null
+        }
+        Update: {
+          address?: string | null
+          church_name?: string | null
+          created_at?: string
+          email?: string | null
+          facebook_url?: string | null
+          favicon_url?: string | null
+          google_maps_url?: string | null
+          id?: string
+          instagram_url?: string | null
+          logo_url?: string | null
+          office_hours?: string | null
+          phone?: string | null
+          updated_at?: string
+          website_description?: string | null
+          website_title?: string | null
+          youtube_url?: string | null
+        }
+        Relationships: []
+      }
+      core_values: {
+        Row: {
+          created_at: string
+          description: string | null
+          display_order: number
+          icon: string | null
+          id: string
+          is_active: boolean
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          display_order?: number
+          icon?: string | null
+          id?: string
+          is_active?: boolean
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          display_order?: number
+          icon?: string | null
+          id?: string
+          is_active?: boolean
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      events: {
+        Row: {
+          category: string
+          contact_email: string | null
+          contact_name: string | null
+          contact_phone: string | null
+          created_at: string
+          created_by: string | null
+          description: string | null
+          end_time: string | null
+          event_date: string | null
+          id: string
+          image_url: string | null
+          is_featured: boolean
+          location: string | null
+          registration_url: string | null
+          slug: string
+          start_time: string | null
+          status: string
+          summary: string | null
+          title: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          category?: string
+          contact_email?: string | null
+          contact_name?: string | null
+          contact_phone?: string | null
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          end_time?: string | null
+          event_date?: string | null
+          id?: string
+          image_url?: string | null
+          is_featured?: boolean
+          location?: string | null
+          registration_url?: string | null
+          slug: string
+          start_time?: string | null
+          status?: string
+          summary?: string | null
+          title: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          category?: string
+          contact_email?: string | null
+          contact_name?: string | null
+          contact_phone?: string | null
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          end_time?: string | null
+          event_date?: string | null
+          id?: string
+          image_url?: string | null
+          is_featured?: boolean
+          location?: string | null
+          registration_url?: string | null
+          slug?: string
+          start_time?: string | null
+          status?: string
+          summary?: string | null
+          title?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "events_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "events_updated_by_fkey"
+            columns: ["updated_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      homepage_content: {
+        Row: {
+          about_button_text: string | null
+          about_button_url: string | null
+          about_description: string | null
+          about_image_url: string | null
+          about_title: string | null
+          created_at: string
+          cta_button_text: string | null
+          cta_button_url: string | null
+          cta_description: string | null
+          cta_title: string | null
+          eyebrow: string | null
+          hero_description: string | null
+          hero_image_url: string | null
+          hero_title: string | null
+          id: string
+          primary_button_text: string | null
+          primary_button_url: string | null
+          secondary_button_text: string | null
+          secondary_button_url: string | null
+          updated_at: string
+          welcome_button_text: string | null
+          welcome_button_url: string | null
+          welcome_description: string | null
+          welcome_image_url: string | null
+          welcome_title: string | null
+        }
+        Insert: {
+          about_button_text?: string | null
+          about_button_url?: string | null
+          about_description?: string | null
+          about_image_url?: string | null
+          about_title?: string | null
+          created_at?: string
+          cta_button_text?: string | null
+          cta_button_url?: string | null
+          cta_description?: string | null
+          cta_title?: string | null
+          eyebrow?: string | null
+          hero_description?: string | null
+          hero_image_url?: string | null
+          hero_title?: string | null
+          id?: string
+          primary_button_text?: string | null
+          primary_button_url?: string | null
+          secondary_button_text?: string | null
+          secondary_button_url?: string | null
+          updated_at?: string
+          welcome_button_text?: string | null
+          welcome_button_url?: string | null
+          welcome_description?: string | null
+          welcome_image_url?: string | null
+          welcome_title?: string | null
+        }
+        Update: {
+          about_button_text?: string | null
+          about_button_url?: string | null
+          about_description?: string | null
+          about_image_url?: string | null
+          about_title?: string | null
+          created_at?: string
+          cta_button_text?: string | null
+          cta_button_url?: string | null
+          cta_description?: string | null
+          cta_title?: string | null
+          eyebrow?: string | null
+          hero_description?: string | null
+          hero_image_url?: string | null
+          hero_title?: string | null
+          id?: string
+          primary_button_text?: string | null
+          primary_button_url?: string | null
+          secondary_button_text?: string | null
+          secondary_button_url?: string | null
+          updated_at?: string
+          welcome_button_text?: string | null
+          welcome_button_url?: string | null
+          welcome_description?: string | null
+          welcome_image_url?: string | null
+          welcome_title?: string | null
+        }
+        Relationships: []
+      }
+      leaders: {
+        Row: {
+          biography: string | null
+          created_at: string
+          created_by: string | null
+          display_order: number
+          id: string
+          name: string
+          photo_url: string | null
+          position: string | null
+          status: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          biography?: string | null
+          created_at?: string
+          created_by?: string | null
+          display_order?: number
+          id?: string
+          name: string
+          photo_url?: string | null
+          position?: string | null
+          status?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          biography?: string | null
+          created_at?: string
+          created_by?: string | null
+          display_order?: number
+          id?: string
+          name?: string
+          photo_url?: string | null
+          position?: string | null
+          status?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "leaders_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "leaders_updated_by_fkey"
+            columns: ["updated_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      media: {
+        Row: {
+          created_at: string
+          file_name: string
+          file_size: number | null
+          folder: string
+          id: string
+          mime_type: string | null
+          public_url: string
+          storage_path: string
+          uploaded_by: string | null
+        }
+        Insert: {
+          created_at?: string
+          file_name: string
+          file_size?: number | null
+          folder?: string
+          id?: string
+          mime_type?: string | null
+          public_url: string
+          storage_path: string
+          uploaded_by?: string | null
+        }
+        Update: {
+          created_at?: string
+          file_name?: string
+          file_size?: number | null
+          folder?: string
+          id?: string
+          mime_type?: string | null
+          public_url?: string
+          storage_path?: string
+          uploaded_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "media_uploaded_by_fkey"
+            columns: ["uploaded_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      ministries: {
+        Row: {
+          audience: string | null
+          contact_email: string | null
+          contact_phone: string | null
+          created_at: string
+          created_by: string | null
+          description: string | null
+          display_order: number
+          id: string
+          image_url: string | null
+          leader_name: string | null
+          mission: string | null
+          name: string
+          schedule: string | null
+          short_description: string | null
+          slug: string
+          status: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          audience?: string | null
+          contact_email?: string | null
+          contact_phone?: string | null
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          display_order?: number
+          id?: string
+          image_url?: string | null
+          leader_name?: string | null
+          mission?: string | null
+          name: string
+          schedule?: string | null
+          short_description?: string | null
+          slug: string
+          status?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          audience?: string | null
+          contact_email?: string | null
+          contact_phone?: string | null
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          display_order?: number
+          id?: string
+          image_url?: string | null
+          leader_name?: string | null
+          mission?: string | null
+          name?: string
+          schedule?: string | null
+          short_description?: string | null
+          slug?: string
+          status?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ministries_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "ministries_updated_by_fkey"
+            columns: ["updated_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          full_name: string | null
+          id: string
+          role: string
+          updated_at: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          full_name?: string | null
+          id: string
+          role?: string
+          updated_at?: string
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          full_name?: string | null
+          id?: string
+          role?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      sermons: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          description: string | null
+          duration: string | null
+          id: string
+          is_featured: boolean
+          scripture_reference: string | null
+          series: string | null
+          sermon_date: string | null
+          slug: string
+          speaker: string | null
+          status: string
+          summary: string | null
+          thumbnail_url: string | null
+          title: string
+          updated_at: string
+          updated_by: string | null
+          video_url: string | null
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          duration?: string | null
+          id?: string
+          is_featured?: boolean
+          scripture_reference?: string | null
+          series?: string | null
+          sermon_date?: string | null
+          slug: string
+          speaker?: string | null
+          status?: string
+          summary?: string | null
+          thumbnail_url?: string | null
+          title: string
+          updated_at?: string
+          updated_by?: string | null
+          video_url?: string | null
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          duration?: string | null
+          id?: string
+          is_featured?: boolean
+          scripture_reference?: string | null
+          series?: string | null
+          sermon_date?: string | null
+          slug?: string
+          speaker?: string | null
+          status?: string
+          summary?: string | null
+          thumbnail_url?: string | null
+          title?: string
+          updated_at?: string
+          updated_by?: string | null
+          video_url?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "sermons_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "sermons_updated_by_fkey"
+            columns: ["updated_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      service_times: {
+        Row: {
+          created_at: string
+          day_of_week: string | null
+          description: string | null
+          display_order: number
+          end_time: string | null
+          id: string
+          is_active: boolean
+          name: string
+          start_time: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          day_of_week?: string | null
+          description?: string | null
+          display_order?: number
+          end_time?: string | null
+          id?: string
+          is_active?: boolean
+          name: string
+          start_time?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          day_of_week?: string | null
+          description?: string | null
+          display_order?: number
+          end_time?: string | null
+          id?: string
+          is_active?: boolean
+          name?: string
+          start_time?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      testimonials: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          display_order: number
+          id: string
+          name: string
+          photo_url: string | null
+          quote: string | null
+          role: string | null
+          status: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          display_order?: number
+          id?: string
+          name: string
+          photo_url?: string | null
+          quote?: string | null
+          role?: string | null
+          status?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          display_order?: number
+          id?: string
+          name?: string
+          photo_url?: string | null
+          quote?: string | null
+          role?: string | null
+          status?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "testimonials_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "testimonials_updated_by_fkey"
+            columns: ["updated_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
+      is_staff: { Args: never; Returns: boolean }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "editor"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +917,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "editor"],
+    },
   },
 } as const
