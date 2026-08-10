@@ -13,13 +13,13 @@ export const Route = createFileRoute("/_public/events/$id")({
   head: ({ loaderData }) => {
     if (!loaderData) {
       return {
-        meta: [{ title: "Event Not Found — Grace Community Church" }, { name: "robots", content: "noindex" }],
+        meta: [{ title: "Event Not Found — First Chirstian Church - Bagumbayan" }, { name: "robots", content: "noindex" }],
       };
     }
     const { event } = loaderData;
     return {
       meta: [
-        { title: `${event.title} — Grace Community Church` },
+        { title: `${event.title} — First Chirstian Church - Bagumbayan` },
         { name: "description", content: event.summary },
         { property: "og:title", content: `${event.title} — ${event.dateLabel}` },
         { property: "og:description", content: event.summary },

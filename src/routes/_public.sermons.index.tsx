@@ -12,13 +12,13 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/_public/sermons/")({
   head: () => ({
     meta: [
-      { title: "Sermon Library — Grace Community Church" },
+      { title: "Sermon Library — First Chirstian Church - Bagumbayan" },
       {
         name: "description",
         content:
-          "Watch and revisit messages from Pastor John Smith, Pastor Sarah Williams, and guest speakers at Grace Community Church.",
+          "Watch and revisit messages from Pastor John Smith, Pastor Sarah Williams, and guest speakers at First Chirstian Church - Bagumbayan.",
       },
-      { property: "og:title", content: "Sermon Library — Grace Community Church" },
+      { property: "og:title", content: "Sermon Library — First Chirstian Church - Bagumbayan" },
       { property: "og:description", content: "Messages from our Sunday gatherings, searchable by speaker." },
     ],
   }),

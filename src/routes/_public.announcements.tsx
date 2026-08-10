@@ -7,14 +7,14 @@ import { announcements, images } from "@/data/church";
 export const Route = createFileRoute("/_public/announcements")({
   head: () => ({
     meta: [
-      { title: "Announcements — Grace Community Church" },
+      { title: "Announcements — First Chirstian Church - Bagumbayan" },
       {
         name: "description",
         content:
           "Church news and updates: service time changes, youth registration, outreach expansion, and new Bible study groups.",
       },
       { property: "og:title", content: "Church News & Announcements" },
-      { property: "og:description", content: "The latest updates from Grace Community Church in Springfield." },
+      { property: "og:description", content: "The latest updates from First Chirstian Church - Bagumbayan in Springfield." },
     ],
   }),
   component: AnnouncementsPage,

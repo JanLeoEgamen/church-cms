@@ -78,10 +78,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Grace Community Church — Springfield, California" },
+      { title: "First Chirstian Church - Bagumbayan — Springfield, California" },
       { name: "description", content: "A Christ-centered community in Springfield committed to growing in faith, serving others, and sharing God's love." },
-      { name: "author", content: "Grace Community Church" },
-      { property: "og:title", content: "Grace Community Church" },
+      { name: "author", content: "First Chirstian Church - Bagumbayan" },
+      { property: "og:title", content: "First Chirstian Church - Bagumbayan" },
       { property: "og:description", content: "A place to belong, a faith to live, a community to share." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

@@ -13,15 +13,15 @@ export const Route = createFileRoute("/_public/ministries/$id")({
   head: ({ loaderData }) => {
     if (!loaderData) {
       return {
-        meta: [{ title: "Ministry Not Found — Grace Community Church" }, { name: "robots", content: "noindex" }],
+        meta: [{ title: "Ministry Not Found — First Chirstian Church - Bagumbayan" }, { name: "robots", content: "noindex" }],
       };
     }
     const { ministry } = loaderData;
     return {
       meta: [
-        { title: `${ministry.name} — Grace Community Church` },
+        { title: `${ministry.name} — First Chirstian Church - Bagumbayan` },
         { name: "description", content: ministry.short },
-        { property: "og:title", content: `${ministry.name} — Grace Community Church` },
+        { property: "og:title", content: `${ministry.name} — First Chirstian Church - Bagumbayan` },
         { property: "og:description", content: ministry.short },
       ],
     };

@@ -7,13 +7,13 @@ import { images, leadership, storyParagraphs, values } from "@/data/church";
 export const Route = createFileRoute("/_public/about")({
   head: () => ({
     meta: [
-      { title: "About Us — Grace Community Church" },
+      { title: "About Us — First Chirstian Church - Bagumbayan" },
       {
         name: "description",
         content:
-          "Our story, mission, vision, and values. Grace Community Church has served Springfield since 1978 with plain teaching and practical care.",
+          "Our story, mission, vision, and values. First Chirstian Church - Bagumbayan has served Springfield since 1978 with plain teaching and practical care.",
       },
-      { property: "og:title", content: "About Grace Community Church" },
+      { property: "og:title", content: "About First Chirstian Church - Bagumbayan" },
       {
         property: "og:description",
         content: "Since 1978, a church of families, students, and neighbors in Springfield, California.",
@@ -46,7 +46,7 @@ function AboutPage() {
           <div className="overflow-hidden rounded-3xl shadow-soft">
             <img
               src={images.heroWorship}
-              alt="Sunday worship at Grace Community Church"
+              alt="Sunday worship at First Chirstian Church - Bagumbayan"
               loading="lazy"
               className="h-full min-h-80 w-full object-cover"
             />

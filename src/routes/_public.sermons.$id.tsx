@@ -14,13 +14,13 @@ export const Route = createFileRoute("/_public/sermons/$id")({
   head: ({ loaderData }) => {
     if (!loaderData) {
       return {
-        meta: [{ title: "Sermon Not Found — Grace Community Church" }, { name: "robots", content: "noindex" }],
+        meta: [{ title: "Sermon Not Found — First Chirstian Church - Bagumbayan" }, { name: "robots", content: "noindex" }],
       };
     }
     const { sermon } = loaderData;
     return {
       meta: [
-        { title: `${sermon.title} — Grace Community Church` },
+        { title: `${sermon.title} — First Chirstian Church - Bagumbayan` },
         { name: "description", content: sermon.summary },
         { property: "og:title", content: `${sermon.title} — ${sermon.speaker}` },
         { property: "og:description", content: sermon.summary },

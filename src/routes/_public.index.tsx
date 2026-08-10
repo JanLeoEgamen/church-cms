@@ -16,13 +16,13 @@ import { events, images, leadership, ministries, sermons, testimonials, values }
 export const Route = createFileRoute("/_public/")({
   head: () => ({
     meta: [
-      { title: "Grace Community Church — A Place to Belong in Springfield" },
+      { title: "First Chirstian Church - Bagumbayan — A Place to Belong in Springfield" },
       {
         name: "description",
         content:
-          "Grace Community Church is a Christ-centered community in Springfield, CA. Sunday worship at 9:00 and 10:30 AM. Ministries, sermons, and events for every season of life.",
+          "First Chirstian Church - Bagumbayan is a Christ-centered community in Springfield, CA. Sunday worship at 9:00 and 10:30 AM. Ministries, sermons, and events for every season of life.",
       },
-      { property: "og:title", content: "Grace Community Church — A Place to Belong" },
+      { property: "og:title", content: "First Chirstian Church - Bagumbayan — A Place to Belong" },
       {
         property: "og:description",
         content:
@@ -40,7 +40,7 @@ function HomePage() {
       <section className="relative isolate flex min-h-[88vh] items-center overflow-hidden">
         <img
           src={images.heroWorship}
-          alt="Congregation worshipping together at Grace Community Church"
+          alt="Congregation worshipping together at First Chirstian Church - Bagumbayan"
           width={1920}
           height={1088}
           className="absolute inset-0 h-full w-full object-cover"
@@ -48,7 +48,7 @@ function HomePage() {
         <div className="absolute inset-0 bg-gradient-to-r from-ink/85 via-ink/60 to-ink/25" />
         <div className="relative mx-auto w-full max-w-7xl px-5 py-28 lg:px-8">
           <div className="rise-in max-w-3xl text-primary-foreground">
-            <p className="eyebrow text-gold">Welcome to Grace Community Church</p>
+            <p className="eyebrow text-gold">Welcome to First Chirstian Church - Bagumbayan</p>
             <h1 className="mt-6 text-4xl leading-[1.03] font-semibold text-balance sm:text-6xl lg:text-7xl">
               A Place to Belong. A Faith to Live. A Community to Share.
             </h1>

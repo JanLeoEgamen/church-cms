@@ -13,13 +13,13 @@ const filters = ["All", "Worship", "Youth", "Community", "Outreach", "Other"] as
 export const Route = createFileRoute("/_public/events/")({
   head: () => ({
     meta: [
-      { title: "Events — Grace Community Church" },
+      { title: "Events — First Chirstian Church - Bagumbayan" },
       {
         name: "description",
         content:
-          "Worship services, youth nights, outreach mornings, and community gatherings at Grace Community Church in Springfield, CA.",
+          "Worship services, youth nights, outreach mornings, and community gatherings at First Chirstian Church - Bagumbayan in Springfield, CA.",
       },
-      { property: "og:title", content: "Upcoming Events at Grace Community Church" },
+      { property: "og:title", content: "Upcoming Events at First Chirstian Church - Bagumbayan" },
       { property: "og:description", content: "See what's happening this month and plan to join us." },
     ],
   }),

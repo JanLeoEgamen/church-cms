@@ -7,13 +7,13 @@ import { images, ministries } from "@/data/church";
 export const Route = createFileRoute("/_public/ministries/")({
   head: () => ({
     meta: [
-      { title: "Ministries — Grace Community Church" },
+      { title: "Ministries — First Chirstian Church - Bagumbayan" },
       {
         name: "description",
         content:
-          "Kids, youth, young adults, women's, men's, worship, prayer, and outreach ministries at Grace Community Church in Springfield.",
+          "Kids, youth, young adults, women's, men's, worship, prayer, and outreach ministries at First Chirstian Church - Bagumbayan in Springfield.",
       },
-      { property: "og:title", content: "Ministries at Grace Community Church" },
+      { property: "og:title", content: "Ministries at First Chirstian Church - Bagumbayan" },
       {
         property: "og:description",
         content: "Find a group where you'll be known by name — for every age and season of life.",

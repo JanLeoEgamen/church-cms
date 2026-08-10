@@ -44,7 +44,7 @@ Keep the code organized and component-based so the backend/CMS functionality can
 
 Create a website for a church called:
 
-**Grace Community Church**
+**First Chirstian Church - Bagumbayan**
 
 The project has two separate UI experiences:
 
@@ -149,7 +149,7 @@ Create a responsive navbar.
 
 Logo:
 
-**Grace Community Church**
+**First Chirstian Church - Bagumbayan**
 
 Navigation:
 
@@ -191,7 +191,7 @@ Content:
 
 Small label:
 
-**WELCOME TO GRACE COMMUNITY CHURCH**
+**WELCOME TO First Chirstian Church - Bagumbayan**
 
 Headline:
 
@@ -463,7 +463,7 @@ Use realistic dummy testimonials.
 
 Example:
 
-> "Grace Community Church has become a place where our family feels welcomed, supported, and encouraged."
+> "First Chirstian Church - Bagumbayan has become a place where our family feels welcomed, supported, and encouraged."
 
 Include:
 
@@ -516,7 +516,7 @@ Social media:
 
 Copyright:
 
-**© 2026 Grace Community Church. All rights reserved.**
+**© 2026 First Chirstian Church - Bagumbayan. All rights reserved.**
 
 Do NOT include an Admin/CMS link.
 
@@ -771,7 +771,7 @@ Include:
 
 Dummy information:
 
-**Grace Community Church**
+**First Chirstian Church - Bagumbayan**
 
 123 Main Street
 

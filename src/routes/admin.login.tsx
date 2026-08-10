@@ -8,7 +8,7 @@ export const Route = createFileRoute("/admin/login")({
     meta: [
       { title: "Sign In — Church CMS" },
       { name: "robots", content: "noindex" },
-      { name: "description", content: "Sign in to manage the Grace Community Church website." },
+      { name: "description", content: "Sign in to manage the First Chirstian Church - Bagumbayan website." },
       { property: "og:title", content: "Church CMS Sign In" },
       { property: "og:description", content: "Manage your church website content." },
     ],

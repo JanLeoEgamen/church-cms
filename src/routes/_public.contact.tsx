@@ -12,13 +12,13 @@ import { church, images, serviceTimes } from "@/data/church";
 export const Route = createFileRoute("/_public/contact")({
   head: () => ({
     meta: [
-      { title: "Contact & Plan Your Visit — Grace Community Church" },
+      { title: "Contact & Plan Your Visit — First Chirstian Church - Bagumbayan" },
       {
         name: "description",
         content:
           "Visit us at 123 Main Street, Springfield, CA. Call (555) 123-4567 or send a message — we'd love to hear from you.",
       },
-      { property: "og:title", content: "Contact Grace Community Church" },
+      { property: "og:title", content: "Contact First Chirstian Church - Bagumbayan" },
       { property: "og:description", content: "Plan your visit, ask a question, or request prayer." },
     ],
   }),
