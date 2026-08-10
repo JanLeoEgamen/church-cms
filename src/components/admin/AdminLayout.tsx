@@ -130,7 +130,7 @@ export function AdminLayout({ children }: { children: ReactNode }) {
         </span>
         <div className="min-w-0">
           <p className="truncate text-sm font-bold">Church CMS</p>
-          <p className="truncate text-xs text-sidebar-foreground/60">Grace Community</p>
+          <p className="truncate text-xs text-sidebar-foreground/60">First Chirstian Church - Bagumbayan</p>
         </div>
       </div>
       <nav className="flex-1 space-y-6 overflow-y-auto px-3 pb-6">

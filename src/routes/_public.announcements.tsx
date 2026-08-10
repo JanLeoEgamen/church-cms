@@ -26,7 +26,7 @@ function AnnouncementsPage() {
       <PageHero
         eyebrow="Announcements"
         title="Church News & Updates"
-        description="Everything happening around Grace Community, in one place."
+        description="Everything happening around First Chirstian Church - Bagumbayan, in one place."
         image={images.ministryPrayer}
       />
 

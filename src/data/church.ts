@@ -28,7 +28,7 @@ export const images = {
 
 export const church = {
   name: "First Chirstian Church - Bagumbayan",
-  shortName: "Grace Community",
+  shortName: "First Chirstian Church - Bagumbayan",
   tagline: "A Christ-centered community in Springfield.",
   address: "123 Main Street, Springfield, CA 90000",
   addressLines: ["123 Main Street", "Springfield, CA 90000"],
@@ -507,7 +507,7 @@ export const leadership: Leader[] = [
     id: "john-smith",
     name: "Pastor John Smith",
     role: "Senior Pastor",
-    bio: "John has served Grace Community for eighteen years. He preaches most Sundays, teaches the Wednesday study, and can usually be found in the lobby long after everyone else has gone home. He and his wife Anne have three grown children.",
+    bio: "John has served First Chirstian Church - Bagumbayan for eighteen years. He preaches most Sundays, teaches the Wednesday study, and can usually be found in the lobby long after everyone else has gone home. He and his wife Anne have three grown children.",
     image: leaderJohn,
     order: 1,
     status: "Published",
@@ -574,7 +574,7 @@ export const testimonials: Testimonial[] = [
 export const storyParagraphs = [
   "First Chirstian Church - Bagumbayan began in 1978 with twelve families meeting in a rented school gymnasium on Third Street. There was no building, no staff, and no budget — only a conviction that Springfield needed a church where honest questions were welcome.",
   "Over the next two decades the congregation grew, built its first sanctuary on Main Street, and started the food pantry that still runs today. Through changes in leadership and neighborhood, the commitments stayed the same: teach the scriptures plainly, care for people personally, and serve the city faithfully.",
-  "Today more than nine hundred people call Grace Community home across two Sunday services. We remain a church of families and students, longtime members and first-time visitors, all learning together what it means to follow Jesus in ordinary life.",
+  "Today more than nine hundred people call First Chirstian Church - Bagumbayan home across two Sunday services. We remain a church of families and students, longtime members and first-time visitors, all learning together what it means to follow Jesus in ordinary life.",
 ];
 
 export const mediaFiles = [

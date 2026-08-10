@@ -107,7 +107,7 @@ function HomePage() {
               align="left"
               eyebrow="Our Church"
               title="Growing Together. Serving Together."
-              description="For nearly fifty years Grace Community has been a home for families, students, and neighbors in Springfield."
+              description="For nearly fifty years First Chirstian Church - Bagumbayan has been a home for families, students, and neighbors in Springfield."
             />
             <p className="mt-6 text-base leading-relaxed text-muted-foreground">
               We teach the scriptures plainly, we pray for one another by name, and we take practical
