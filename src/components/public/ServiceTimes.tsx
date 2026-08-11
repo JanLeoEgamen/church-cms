@@ -1,12 +1,15 @@
 import { Link } from "@tanstack/react-router";
 import { Church, Sunrise, HandHeart } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { serviceTimes } from "@/data/church";
+import { useQuery } from "@tanstack/react-query";
+import { serviceTimesQuery } from "@/lib/queries";
 import { SectionHeading } from "./SectionHeading";
 
 const icons = [Sunrise, Church, HandHeart];
 
 export function ServiceTimes() {
+  const { data } = useQuery(serviceTimesQuery());
+  const serviceTimes = data ?? [];
   return (
     <section className="bg-secondary/60 py-20 sm:py-24">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
