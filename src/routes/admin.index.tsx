@@ -1,8 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
 import { CalendarDays, HeartHandshake, Image, Megaphone, Mic, Quote } from "lucide-react";
 import { AdminLayout, AdminPageHeader, StatCard } from "@/components/admin/AdminLayout";
 import { Button } from "@/components/ui/button";
-import { recentActivity } from "@/data/church";
+import { adminCountsQuery, recentActivityQuery } from "@/lib/queries";
+import { formatShortDate } from "@/lib/mappers";
 
 export const Route = createFileRoute("/admin/")({
   head: () => ({
@@ -17,20 +19,23 @@ export const Route = createFileRoute("/admin/")({
   component: Page,
 });
 
-const stats = [
-  { label: "Events", value: 12, icon: CalendarDays },
-  { label: "Sermons", value: 34, icon: Mic },
-  { label: "Announcements", value: 8, icon: Megaphone },
-  { label: "Ministries", value: 8, icon: HeartHandshake },
-  { label: "Testimonials", value: 16, icon: Quote },
-  { label: "Media Files", value: 124, icon: Image },
-];
-
 function Page() {
+  const counts = useQuery(adminCountsQuery());
+  const activity = useQuery(recentActivityQuery());
+
+  const stats = [
+    { label: "Events", value: counts.data?.events ?? "—", icon: CalendarDays },
+    { label: "Sermons", value: counts.data?.sermons ?? "—", icon: Mic },
+    { label: "Announcements", value: counts.data?.announcements ?? "—", icon: Megaphone },
+    { label: "Ministries", value: counts.data?.ministries ?? "—", icon: HeartHandshake },
+    { label: "Testimonials", value: counts.data?.testimonials ?? "—", icon: Quote },
+    { label: "Media Files", value: counts.data?.media ?? "—", icon: Image },
+  ];
+
   return (
     <AdminLayout>
       <AdminPageHeader
-        title="Good morning, Admin"
+        title="Welcome back"
         description="Here's what's happening with your website."
         actions={
           <Button asChild variant="outline" className="rounded-lg">
@@ -46,15 +51,22 @@ function Page() {
       <section className="rounded-2xl border border-border bg-card shadow-soft">
         <h2 className="border-b border-border px-6 py-4 text-lg font-bold">Recent Activity</h2>
         <ul className="divide-y divide-border">
-          {recentActivity.map((a) => (
-            <li key={a.id} className="grid gap-1 px-6 py-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center">
+          {(activity.data ?? []).map((a) => (
+            <li
+              key={a.id}
+              className="grid gap-1 px-6 py-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center"
+            >
               <div className="min-w-0">
                 <p className="truncate text-sm font-medium">{a.action}</p>
-                <p className="text-xs text-muted-foreground">by {a.user}</p>
               </div>
-              <p className="text-xs text-muted-foreground sm:text-right">{a.time}</p>
+              <p className="text-xs text-muted-foreground sm:text-right">
+                {formatShortDate(a.updated_at)}
+              </p>
             </li>
           ))}
+          {activity.isSuccess && (activity.data ?? []).length === 0 && (
+            <li className="px-6 py-8 text-center text-sm text-muted-foreground">No activity yet.</li>
+          )}
         </ul>
       </section>
     </AdminLayout>
