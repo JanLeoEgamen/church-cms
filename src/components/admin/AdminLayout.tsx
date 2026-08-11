@@ -1,5 +1,9 @@
-import { useState, type ReactNode } from "react";
-import { Link, useRouterState } from "@tanstack/react-router";
+import { useEffect, useState, type ReactNode } from "react";
+import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
+import { useQueryClient } from "@tanstack/react-query";
+import { Loader2 } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { useProfile, useSession } from "@/hooks/use-auth";
 import {
   LayoutDashboard,
   Home,
@@ -121,6 +125,24 @@ export function EmptyState({ title, description }: { title: string; description:
 export function AdminLayout({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false);
   const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  const { user, loading } = useSession();
+  const profile = useProfile(user);
+
+  useEffect(() => {
+    if (!loading && !user) navigate({ to: "/admin/login", replace: true });
+  }, [loading, user, navigate]);
+
+  const handleSignOut = async () => {
+    await queryClient.cancelQueries();
+    queryClient.clear();
+    await supabase.auth.signOut();
+    navigate({ to: "/admin/login", replace: true });
+  };
+
+  const displayName = profile?.full_name ?? user?.email?.split("@")[0] ?? "Admin";
+  const initials = displayName.slice(0, 2).toUpperCase();
 
   const nav = (
     <div className="flex h-full flex-col">
@@ -168,23 +190,32 @@ export function AdminLayout({ children }: { children: ReactNode }) {
       <div className="border-t border-sidebar-border p-4">
         <div className="flex min-w-0 items-center gap-3">
           <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-sidebar-accent text-xs font-bold">
-            AD
+            {initials}
           </span>
           <div className="min-w-0 flex-1">
-            <p className="truncate text-sm font-medium">Admin</p>
-            <p className="truncate text-xs text-sidebar-foreground/60">admin@gracechurch.org</p>
+            <p className="truncate text-sm font-medium">{displayName}</p>
+            <p className="truncate text-xs text-sidebar-foreground/60">{user?.email ?? ""}</p>
           </div>
-          <Link
-            to="/admin/login"
+          <button
+            type="button"
+            onClick={handleSignOut}
             aria-label="Log out"
             className="grid h-8 w-8 shrink-0 place-items-center rounded-lg text-sidebar-foreground/70 hover:bg-sidebar-accent"
           >
             <LogOut className="h-4 w-4" />
-          </Link>
+          </button>
         </div>
       </div>
     </div>
   );
+
+  if (loading || !user) {
+    return (
+      <div className="grid min-h-screen place-items-center bg-muted/50">
+        <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-muted/50">
