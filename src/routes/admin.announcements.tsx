@@ -1,16 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { AdminLayout } from "@/components/admin/AdminLayout";
-import { ContentManager } from "@/components/admin/ContentManager";
-import { announcements } from "@/data/church";
+import { ContentManager, makeRow } from "@/components/admin/ContentManager";
 
 export const Route = createFileRoute("/admin/announcements")({
   head: () => ({
     meta: [
       { title: "Announcements — Church CMS" },
       { name: "robots", content: "noindex" },
-      { name: "description", content: "Share church news and updates with your congregation." },
+      { name: "description", content: "Share news and updates with the congregation." },
       { property: "og:title", content: "Announcements — Church CMS" },
-      { property: "og:description", content: "Share church news and updates with your congregation." },
+      { property: "og:description", content: "Share news and updates with the congregation." },
     ],
   }),
   component: Page,
@@ -20,12 +19,22 @@ function Page() {
   return (
     <AdminLayout>
       <ContentManager
+        table="announcements"
         title="Announcements"
-        description="Share church news and updates with your congregation."
+        description="Share news and updates with the congregation."
         addLabel="Add Announcement"
-        columns={["Announcement", "Publish Date", "Status"]}
-        rows={announcements.map((a) => ({ id: a.id, image: a.image, title: a.title, meta: a.dateLabel, status: a.status, updated: a.dateLabel }))}
-        editorFields={["Title", "Content", "Featured Image URL", "Publish Date"]}
+        columns={["Announcement", "Summary", "Status"]}
+        titleField="title"
+        slugField="slug"
+        imageField="image_url"
+        orderBy="publish_date"
+        fields={[
+          { name: "title", label: "Title", required: true },
+          { name: "summary", label: "Summary", type: "textarea" },
+          { name: "content", label: "Content", type: "textarea" },
+          { name: "image_url", label: "Image URL" },
+        ]}
+        toRow={(row) => makeRow(row, { title: "title", meta: "summary", image: "image_url" })}
         emptyTitle="No announcements yet"
         emptyDescription="Post your first announcement to get started."
       />
