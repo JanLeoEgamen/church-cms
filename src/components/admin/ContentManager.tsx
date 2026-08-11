@@ -83,10 +83,10 @@ type DbRow = Record<string, unknown>;
 
 export type DisplayRow = {
   id: string;
-  image?: string;
+  image?: string | undefined;
   title: string;
   meta: string;
-  extra?: string;
+  extra?: string | undefined;
   status: string;
   updated: string;
 };
@@ -160,7 +160,7 @@ export function ContentManager({
     setForm(
       Object.fromEntries(fields.map((f) => [f.name, row[f.name] == null ? "" : String(row[f.name])])),
     );
-    setFormStatus(typeof row.status === "string" ? row.status : "draft");
+    setFormStatus(typeof row['status'] === "string" ? row['status'] : "draft");
     setEditing(row);
   };
 
@@ -177,29 +177,20 @@ export function ContentManager({
   const save = useMutation({
     mutationFn: async (nextStatus: string) => {
       const missing = fields.filter((f) => f.required && !form[f.name]?.trim());
-      if (missing.length) throw new Error(`${missing[0].label} is required.`);
+      if (missing.length) throw new Error(`${missing[0]!.label} is required.`);
 
       const payload: Record<string, unknown> = {};
       for (const f of fields) {
         const raw = form[f.name]?.trim() ?? "";
         payload[f.name] = raw === "" ? null : f.type === "number" ? Number(raw) : raw;
       }
-      if (hasStatus) payload.status = nextStatus;
+      if (hasStatus) payload['status'] = nextStatus;
       if (slugField) {
         const base = slugify(String(form[titleField] ?? "")) || `item-${Date.now()}`;
-        const existing = rows.find(
-          (r) => r[slugField] === base && (!editing || r.id !== editing.id),
+        const taken = rows.some(
+          (r) => r[slugField] === base && (!editing || r['id'] !== editing['id']),
         );
-        payload[slugField] =
-          editing && !existing && editing[slugField]
-            ? String(editing[slugField]) === base
-              ? base
-              : existing
-                ? `${base}-${Date.now().toString(36).slice(-4)}`
-                : base
-            : existing
-              ? `${base}-${Date.now().toString(36).slice(-4)}`
-              : base;
+        payload[slugField] = taken ? `${base}-${Date.now().toString(36).slice(-4)}` : base;
       }
 
       const { data: auth } = await supabase.auth.getUser();
@@ -209,7 +200,7 @@ export function ContentManager({
         const { error: err } = await supabase
           .from(table)
           .update({ ...payload, ...(uid ? { updated_by: uid } : {}) } as never)
-          .eq("id", String(editing.id));
+          .eq("id", String(editing['id']));
         if (err) throw new Error(err.message);
       } else {
         const { error: err } = await supabase
@@ -407,7 +398,7 @@ export function ContentManager({
                   />
                 ) : (
                   <Input
-                    type={f.type === "textarea" ? "text" : (f.type ?? "text")}
+                    type={f.type ?? "text"}
                     value={form[f.name] ?? ""}
                     onChange={(e) => setForm((s) => ({ ...s, [f.name]: e.target.value }))}
                   />
@@ -493,13 +484,13 @@ export function makeRow(
   opts: { title: string; meta: string; image?: string; extra?: string },
 ): DisplayRow {
   return {
-    id: String(row.id),
+    id: String(row['id']),
     image: opts.image ? ((row[opts.image] as string | null) ?? undefined) : undefined,
     title: String(row[opts.title] ?? ""),
     meta: String(row[opts.meta] ?? ""),
     extra: opts.extra,
-    status: statusLabel(row.status as string | null),
-    updated: formatShortDate(row.updated_at as string),
+    status: statusLabel(row['status'] as string | null),
+    updated: formatShortDate(row['updated_at'] as string),
   };
 }
 
