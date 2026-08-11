@@ -92,6 +92,9 @@ function SermonsPage() {
             </Button>
           </div>
         </div>
+        </>
+        )}
+
 
         <div className="mt-16 grid gap-4 md:grid-cols-[minmax(0,1fr)_auto] md:items-center">
           <div className="relative">
