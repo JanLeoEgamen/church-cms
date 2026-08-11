@@ -150,7 +150,7 @@ export const coreValuesQuery = () =>
           .select("*")
           .eq("is_active", true)
           .order("display_order", { ascending: true }),
-      ),
+      ) ?? []),
   });
 
 export const homepageQuery = () =>
