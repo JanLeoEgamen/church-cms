@@ -1,7 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { AdminLayout } from "@/components/admin/AdminLayout";
-import { ContentManager } from "@/components/admin/ContentManager";
-import { testimonials } from "@/data/church";
+import { ContentManager, makeRow } from "@/components/admin/ContentManager";
 
 export const Route = createFileRoute("/admin/testimonials")({
   head: () => ({
@@ -20,12 +19,22 @@ function Page() {
   return (
     <AdminLayout>
       <ContentManager
+        table="testimonials"
         title="Testimonials"
         description="Manage stories shared by your church community."
         addLabel="Add Testimonial"
         columns={["Person", "Quote", "Status"]}
-        rows={testimonials.map((t) => ({ id: t.id, image: t.image, title: t.name, meta: t.quote, extra: t.role, status: t.status, updated: "Aug 2026" }))}
-        editorFields={["Name", "Photo URL", "Quote"]}
+        titleField="name"
+        imageField="photo_url"
+        orderBy="display_order"
+        fields={[
+          { name: "name", label: "Name", required: true },
+          { name: "role", label: "Role" },
+          { name: "photo_url", label: "Photo URL" },
+          { name: "quote", label: "Quote", type: "textarea" },
+          { name: "display_order", label: "Display Order", type: "number" },
+        ]}
+        toRow={(row) => makeRow(row, { title: "name", meta: "quote", image: "photo_url" })}
         emptyTitle="No testimonials yet"
         emptyDescription="Add a story from your community to get started."
       />

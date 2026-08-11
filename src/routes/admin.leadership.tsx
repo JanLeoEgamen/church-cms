@@ -1,7 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { AdminLayout } from "@/components/admin/AdminLayout";
-import { ContentManager } from "@/components/admin/ContentManager";
-import { leadership } from "@/data/church";
+import { ContentManager, makeRow } from "@/components/admin/ContentManager";
 
 export const Route = createFileRoute("/admin/leadership")({
   head: () => ({
@@ -20,12 +19,22 @@ function Page() {
   return (
     <AdminLayout>
       <ContentManager
+        table="leaders"
         title="Leadership"
         description="Manage staff profiles and their display order."
         addLabel="Add Leader"
         columns={["Name", "Position", "Status"]}
-        rows={leadership.map((l) => ({ id: l.id, image: l.image, title: l.name, meta: l.role, extra: `Display order ${l.order} · drag to reorder`, status: l.status, updated: "Aug 2026" }))}
-        editorFields={["Name", "Position", "Photo URL", "Biography", "Display Order"]}
+        titleField="name"
+        imageField="photo_url"
+        orderBy="display_order"
+        fields={[
+          { name: "name", label: "Name", required: true },
+          { name: "position", label: "Position" },
+          { name: "photo_url", label: "Photo URL" },
+          { name: "biography", label: "Biography", type: "textarea" },
+          { name: "display_order", label: "Display Order", type: "number" },
+        ]}
+        toRow={(row) => makeRow(row, { title: "name", meta: "position", image: "photo_url" })}
         emptyTitle="No leaders yet"
         emptyDescription="Add your first staff profile to get started."
       />

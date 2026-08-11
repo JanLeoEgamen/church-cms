@@ -2,7 +2,8 @@ import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { church } from "@/data/church";
+import { useQuery } from "@tanstack/react-query";
+import { settingsQuery } from "@/lib/queries";
 
 const links = [
   { to: "/", label: "Home" },
@@ -15,6 +16,8 @@ const links = [
 ] as const;
 
 export function Navbar() {
+  const { data: settings } = useQuery(settingsQuery());
+  const church = settings;
   const [open, setOpen] = useState(false);
 
   return (
@@ -26,7 +29,7 @@ export function Navbar() {
           </span>
           <span className="min-w-0">
             <span className="block truncate font-display text-lg leading-tight font-semibold sm:text-xl">
-              {church.name}
+              {church?.name ?? ""}
             </span>
             <span className="hidden text-[0.7rem] tracking-[0.18em] text-muted-foreground uppercase sm:block">
               Springfield, California

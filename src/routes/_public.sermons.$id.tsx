@@ -2,14 +2,15 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, BookOpen, Calendar, Play, User } from "lucide-react";
 import { SermonCard } from "@/components/public/Cards";
 import { CTASection } from "@/components/public/CTASection";
-import { sermons, type Sermon } from "@/data/church";
+import { getPublicSermon } from "@/lib/public.functions";
+import { mapSermon, type Sermon } from "@/lib/mappers";
 
 export const Route = createFileRoute("/_public/sermons/$id")({
-  loader: ({ params }) => {
-    const sermon = sermons.find((s) => s.id === params.id);
-    if (!sermon) throw notFound();
-    const related: Sermon[] = sermons.filter((x) => x.id !== sermon.id).slice(0, 3);
-    return { sermon, related };
+  loader: async ({ params }) => {
+    const row = await getPublicSermon({ data: { slug: params.id } });
+    if (!row) throw notFound();
+    const related: Sermon[] = [];
+    return { sermon: mapSermon(row), related };
   },
   head: ({ loaderData }) => {
     if (!loaderData) {

@@ -2,7 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PageHero, SectionHeading } from "@/components/public/SectionHeading";
 import { MinistryCard } from "@/components/public/Cards";
 import { CTASection } from "@/components/public/CTASection";
-import { images, ministries } from "@/data/church";
+import { useQuery } from "@tanstack/react-query";
+import { images } from "@/data/church";
+import { ministriesQuery } from "@/lib/queries";
 
 export const Route = createFileRoute("/_public/ministries/")({
   head: () => ({
@@ -24,6 +26,7 @@ export const Route = createFileRoute("/_public/ministries/")({
 });
 
 function MinistriesPage() {
+  const { data: ministries } = useQuery(ministriesQuery());
   return (
     <>
       <PageHero
@@ -40,7 +43,7 @@ function MinistriesPage() {
           description="Browse our ministries and reach out to the leader — they'll help you take the first step."
         />
         <div className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {ministries.map((m) => (
+          {(ministries ?? []).map((m) => (
             <MinistryCard key={m.id} ministry={m} />
           ))}
         </div>

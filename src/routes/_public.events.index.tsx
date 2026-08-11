@@ -5,7 +5,9 @@ import { Button } from "@/components/ui/button";
 import { PageHero } from "@/components/public/SectionHeading";
 import { EventCard } from "@/components/public/Cards";
 import { CTASection } from "@/components/public/CTASection";
-import { events, images } from "@/data/church";
+import { useQuery } from "@tanstack/react-query";
+import { images } from "@/data/church";
+import { eventsQuery } from "@/lib/queries";
 import { cn } from "@/lib/utils";
 
 const filters = ["All", "Worship", "Youth", "Community", "Outreach", "Other"] as const;
@@ -28,8 +30,10 @@ export const Route = createFileRoute("/_public/events/")({
 
 function EventsPage() {
   const [filter, setFilter] = useState<(typeof filters)[number]>("All");
-  const featured = events.find((e) => e.featured) ?? events[0]!;
-  const rest = events.filter((e) => e.id !== featured.id);
+  const { data } = useQuery(eventsQuery());
+  const events = data ?? [];
+  const featured = events.find((e) => e.featured) ?? events[0];
+  const rest = featured ? events.filter((e) => e.id !== featured.id) : [];
   const visible = filter === "All" ? rest : rest.filter((e) => e.category === filter);
 
   return (
@@ -42,6 +46,8 @@ function EventsPage() {
       />
 
       <section className="mx-auto max-w-7xl px-5 py-20 lg:px-8">
+        {featured && (
+        <>
         <p className="eyebrow text-accent">Featured Event</p>
         <div className="surface-card mt-6 grid overflow-hidden lg:grid-cols-2">
           <img
@@ -75,6 +81,9 @@ function EventsPage() {
             </Button>
           </div>
         </div>
+
+        </>
+        )}
 
         <div className="mt-16 flex flex-wrap gap-3">
           {filters.map((f) => (

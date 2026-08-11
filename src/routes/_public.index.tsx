@@ -11,7 +11,17 @@ import {
   SermonCard,
   TestimonialCard,
 } from "@/components/public/Cards";
-import { events, images, leadership, ministries, sermons, testimonials, values } from "@/data/church";
+import { useQuery } from "@tanstack/react-query";
+import { images } from "@/data/church";
+import {
+  announcementsQuery,
+  coreValuesQuery,
+  eventsQuery,
+  leadersQuery,
+  ministriesQuery,
+  sermonsQuery,
+  testimonialsQuery,
+} from "@/lib/queries";
 
 export const Route = createFileRoute("/_public/")({
   head: () => ({
@@ -34,6 +44,12 @@ export const Route = createFileRoute("/_public/")({
 });
 
 function HomePage() {
+  const events = useQuery(eventsQuery()).data ?? [];
+  const sermons = useQuery(sermonsQuery()).data ?? [];
+  const ministries = useQuery(ministriesQuery()).data ?? [];
+  const leadership = useQuery(leadersQuery()).data ?? [];
+  const testimonials = useQuery(testimonialsQuery()).data ?? [];
+  const values = useQuery(coreValuesQuery()).data ?? [];
   return (
     <>
       {/* Hero */}

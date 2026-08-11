@@ -7,7 +7,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { PageHero } from "@/components/public/SectionHeading";
-import { church, images, serviceTimes } from "@/data/church";
+import { useQuery } from "@tanstack/react-query";
+import { images } from "@/data/church";
+import { serviceTimesQuery, settingsQuery } from "@/lib/queries";
 
 export const Route = createFileRoute("/_public/contact")({
   head: () => ({
@@ -27,6 +29,9 @@ export const Route = createFileRoute("/_public/contact")({
 
 function ContactPage() {
   const [sent, setSent] = useState(false);
+  const { data: church } = useQuery(settingsQuery());
+  const { data: serviceTimesData } = useQuery(serviceTimesQuery());
+  const serviceTimes = serviceTimesData ?? [];
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -49,29 +54,29 @@ function ContactPage() {
         <div className="grid gap-12 lg:grid-cols-[22rem_minmax(0,1fr)]">
           <div className="space-y-8">
             <div className="surface-card p-8">
-              <h2 className="text-2xl font-semibold">{church.name}</h2>
+              <h2 className="text-2xl font-semibold">{church?.name ?? ""}</h2>
               <ul className="mt-6 space-y-5 text-sm">
                 <li className="flex gap-3">
                   <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
                   <span className="text-muted-foreground">
-                    {church.addressLines[0]}
+                    {church?.addressLines[0] ?? ""}
                     <br />
-                    {church.addressLines[1]}
+                    {church?.addressLines[1] ?? ""}
                   </span>
                 </li>
                 <li className="flex gap-3">
                   <Phone className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
-                  <a href={`tel:${church.phone}`} className="text-muted-foreground hover:text-accent">
-                    {church.phone}
+                  <a href={`tel:${church?.phone ?? ""}`} className="text-muted-foreground hover:text-accent">
+                    {church?.phone ?? ""}
                   </a>
                 </li>
                 <li className="flex gap-3">
                   <Mail className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
                   <a
-                    href={`mailto:${church.email}`}
+                    href={`mailto:${church?.email ?? ""}`}
                     className="break-all text-muted-foreground hover:text-accent"
                   >
-                    {church.email}
+                    {church?.email ?? ""}
                   </a>
                 </li>
               </ul>
@@ -97,9 +102,9 @@ function ContactPage() {
               <h2 className="text-xl font-semibold">Follow Along</h2>
               <div className="mt-5 flex gap-3">
                 {[
-                  { icon: Facebook, href: church.social.facebook, label: "Facebook" },
-                  { icon: Instagram, href: church.social.instagram, label: "Instagram" },
-                  { icon: Youtube, href: church.social.youtube, label: "YouTube" },
+                  { icon: Facebook, href: church?.social.facebook ?? "#", label: "Facebook" },
+                  { icon: Instagram, href: church?.social.instagram ?? "#", label: "Instagram" },
+                  { icon: Youtube, href: church?.social.youtube ?? "#", label: "YouTube" },
                 ].map(({ icon: Icon, href, label }) => (
                   <a
                     key={label}
@@ -161,7 +166,7 @@ function ContactPage() {
                   <MapPin className="mx-auto h-8 w-8 text-accent" />
                   <p className="mt-4 font-display text-2xl">Find Us on Main Street</p>
                   <p className="mt-2 text-sm text-muted-foreground">
-                    {church.address} · Free parking behind the sanctuary
+                    {church?.address ?? ""} · Free parking behind the sanctuary
                   </p>
                   <p className="mt-4 text-xs tracking-wider text-muted-foreground uppercase">
                     Interactive map placeholder

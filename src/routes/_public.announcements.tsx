@@ -2,7 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PageHero } from "@/components/public/SectionHeading";
 import { AnnouncementCard } from "@/components/public/Cards";
 import { CTASection } from "@/components/public/CTASection";
-import { announcements, images } from "@/data/church";
+import { useQuery } from "@tanstack/react-query";
+import { images } from "@/data/church";
+import { announcementsQuery } from "@/lib/queries";
 
 export const Route = createFileRoute("/_public/announcements")({
   head: () => ({
@@ -21,6 +23,7 @@ export const Route = createFileRoute("/_public/announcements")({
 });
 
 function AnnouncementsPage() {
+  const { data: announcements } = useQuery(announcementsQuery());
   return (
     <>
       <PageHero
@@ -32,7 +35,7 @@ function AnnouncementsPage() {
 
       <section className="mx-auto max-w-5xl px-5 py-20 lg:px-8">
         <div className="grid gap-8">
-          {announcements.map((a) => (
+          {(announcements ?? []).map((a) => (
             <AnnouncementCard key={a.id} announcement={a} />
           ))}
         </div>

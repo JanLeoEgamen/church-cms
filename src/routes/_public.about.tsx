@@ -2,7 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PageHero, SectionHeading } from "@/components/public/SectionHeading";
 import { LeadershipCard } from "@/components/public/Cards";
 import { CTASection } from "@/components/public/CTASection";
-import { images, leadership, storyParagraphs, values } from "@/data/church";
+import { useQuery } from "@tanstack/react-query";
+import { images, storyParagraphs } from "@/data/church";
+import { coreValuesQuery, leadersQuery } from "@/lib/queries";
 
 export const Route = createFileRoute("/_public/about")({
   head: () => ({
@@ -24,6 +26,8 @@ export const Route = createFileRoute("/_public/about")({
 });
 
 function AboutPage() {
+  const { data: leadership } = useQuery(leadersQuery());
+  const { data: values } = useQuery(coreValuesQuery());
   return (
     <>
       <PageHero
@@ -78,7 +82,7 @@ function AboutPage() {
       <section className="mx-auto max-w-7xl px-5 py-20 sm:py-28 lg:px-8">
         <SectionHeading eyebrow="Our Values" title="What Shapes Us" />
         <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {values.map((v) => (
+          {(values ?? []).map((v) => (
             <div key={v.id} className="surface-card hover-lift p-8">
               <h3 className="text-2xl font-semibold">{v.title}</h3>
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{v.description}</p>
@@ -91,7 +95,7 @@ function AboutPage() {
         <div className="mx-auto max-w-7xl px-5 lg:px-8">
           <SectionHeading eyebrow="Our Team" title="Meet Our Leadership" />
           <div className="mt-14 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
-            {leadership.map((l) => (
+            {(leadership ?? []).map((l) => (
               <LeadershipCard key={l.id} leader={l} />
             ))}
           </div>

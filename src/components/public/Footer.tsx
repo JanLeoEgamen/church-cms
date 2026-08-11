@@ -1,8 +1,12 @@
 import { Link } from "@tanstack/react-router";
 import { Facebook, Instagram, Youtube, MapPin, Phone, Mail } from "lucide-react";
-import { church, serviceTimes } from "@/data/church";
+import { useQuery } from "@tanstack/react-query";
+import { serviceTimesQuery, settingsQuery } from "@/lib/queries";
 
 export function Footer() {
+  const { data: church } = useQuery(settingsQuery());
+  const { data: serviceTimesData } = useQuery(serviceTimesQuery());
+  const serviceTimes = serviceTimesData ?? [];
   return (
     <footer className="mt-24 bg-primary text-primary-foreground">
       <div className="mx-auto grid max-w-7xl gap-12 px-5 py-16 md:grid-cols-2 lg:grid-cols-4 lg:px-8">
@@ -11,7 +15,7 @@ export function Footer() {
             <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-accent font-display text-lg text-accent-foreground">
               G
             </span>
-            <span className="font-display text-xl">{church.name}</span>
+            <span className="font-display text-xl">{church?.name ?? ""}</span>
           </div>
           <p className="mt-5 max-w-xs text-sm leading-relaxed text-primary-foreground/70">
             A Christ-centered community in Springfield committed to growing in faith, serving others,
@@ -19,9 +23,9 @@ export function Footer() {
           </p>
           <div className="mt-6 flex gap-3">
             {[
-              { icon: Facebook, href: church.social.facebook, label: "Facebook" },
-              { icon: Instagram, href: church.social.instagram, label: "Instagram" },
-              { icon: Youtube, href: church.social.youtube, label: "YouTube" },
+              { icon: Facebook, href: church?.social.facebook ?? "#", label: "Facebook" },
+              { icon: Instagram, href: church?.social.instagram ?? "#", label: "Instagram" },
+              { icon: Youtube, href: church?.social.youtube ?? "#", label: "YouTube" },
             ].map(({ icon: Icon, href, label }) => (
               <a
                 key={label}
@@ -76,21 +80,21 @@ export function Footer() {
             <li className="flex gap-3">
               <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
               <span>
-                {church.addressLines[0]}
+                {church?.addressLines[0] ?? ""}
                 <br />
-                {church.addressLines[1]}
+                {church?.addressLines[1] ?? ""}
               </span>
             </li>
             <li className="flex gap-3">
               <Phone className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
-              <a href={`tel:${church.phone}`} className="hover:text-accent">
-                {church.phone}
+              <a href={`tel:${church?.phone ?? ""}`} className="hover:text-accent">
+                {church?.phone ?? ""}
               </a>
             </li>
             <li className="flex gap-3">
               <Mail className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
-              <a href={`mailto:${church.email}`} className="break-all hover:text-accent">
-                {church.email}
+              <a href={`mailto:${church?.email ?? ""}`} className="break-all hover:text-accent">
+                {church?.email ?? ""}
               </a>
             </li>
           </ul>
@@ -99,7 +103,7 @@ export function Footer() {
 
       <div className="border-t border-primary-foreground/15">
         <div className="mx-auto max-w-7xl px-5 py-6 text-center text-xs text-primary-foreground/60 lg:px-8">
-          © 2026 {church.name}. All rights reserved.
+          © 2026 {church?.name ?? ""}. All rights reserved.
         </div>
       </div>
     </footer>
