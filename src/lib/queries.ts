@@ -20,13 +20,13 @@ export const ministriesQuery = () =>
   queryOptions({
     queryKey: ["public", "ministries"],
     queryFn: async () =>
-      unwrap(
+      (unwrap(
         await supabase
           .from("ministries")
           .select("*")
           .eq("status", "published")
           .order("display_order", { ascending: true }),
-      ).map(mapMinistry),
+      ) ?? []).map(mapMinistry),
   });
 
 export const ministryQuery = (slug: string) =>
@@ -44,13 +44,13 @@ export const eventsQuery = () =>
   queryOptions({
     queryKey: ["public", "events"],
     queryFn: async () =>
-      unwrap(
+      (unwrap(
         await supabase
           .from("events")
           .select("*")
           .eq("status", "published")
           .order("event_date", { ascending: true }),
-      ).map(mapEvent),
+      ) ?? []).map(mapEvent),
   });
 
 export const eventQuery = (slug: string) =>
@@ -68,13 +68,13 @@ export const sermonsQuery = () =>
   queryOptions({
     queryKey: ["public", "sermons"],
     queryFn: async () =>
-      unwrap(
+      (unwrap(
         await supabase
           .from("sermons")
           .select("*")
           .eq("status", "published")
           .order("sermon_date", { ascending: false }),
-      ).map(mapSermon),
+      ) ?? []).map(mapSermon),
   });
 
 export const sermonQuery = (slug: string) =>
@@ -92,59 +92,59 @@ export const announcementsQuery = () =>
   queryOptions({
     queryKey: ["public", "announcements"],
     queryFn: async () =>
-      unwrap(
+      (unwrap(
         await supabase
           .from("announcements")
           .select("*")
           .eq("status", "published")
           .order("publish_date", { ascending: false }),
-      ).map(mapAnnouncement),
+      ) ?? []).map(mapAnnouncement),
   });
 
 export const leadersQuery = () =>
   queryOptions({
     queryKey: ["public", "leaders"],
     queryFn: async () =>
-      unwrap(
+      (unwrap(
         await supabase
           .from("leaders")
           .select("*")
           .eq("status", "published")
           .order("display_order", { ascending: true }),
-      ).map(mapLeader),
+      ) ?? []).map(mapLeader),
   });
 
 export const testimonialsQuery = () =>
   queryOptions({
     queryKey: ["public", "testimonials"],
     queryFn: async () =>
-      unwrap(
+      (unwrap(
         await supabase
           .from("testimonials")
           .select("*")
           .eq("status", "published")
           .order("display_order", { ascending: true }),
-      ).map(mapTestimonial),
+      ) ?? []).map(mapTestimonial),
   });
 
 export const serviceTimesQuery = () =>
   queryOptions({
     queryKey: ["public", "service_times"],
     queryFn: async () =>
-      unwrap(
+      (unwrap(
         await supabase
           .from("service_times")
           .select("*")
           .eq("is_active", true)
           .order("display_order", { ascending: true }),
-      ).map(mapServiceTime),
+      ) ?? []).map(mapServiceTime),
   });
 
 export const coreValuesQuery = () =>
   queryOptions({
     queryKey: ["public", "core_values"],
     queryFn: async () =>
-      unwrap(
+      (unwrap(
         await supabase
           .from("core_values")
           .select("*")
@@ -187,10 +187,8 @@ export const adminListQuery = (table: AdminTable, orderBy = "updated_at", ascend
   queryOptions({
     queryKey: ["admin", table],
     queryFn: async () =>
-      unwrap(await supabase.from(table).select("*").order(orderBy, { ascending })) as Record<
-        string,
-        never
-      >[] as unknown as Record<string, unknown>[],
+      (unwrap(await supabase.from(table).select("*").order(orderBy, { ascending })) ??
+        []) as unknown as Record<string, unknown>[],
   });
 
 export const adminCountsQuery = () =>
@@ -230,12 +228,12 @@ export const recentActivityQuery = () =>
         sources.map(async (s) => {
           const { data, error } = await supabase
             .from(s.table)
-            .select("id,title,name,updated_at")
+            .select("*")
             .order("updated_at", { ascending: false })
             .limit(3);
           if (error) return [];
           return (data ?? []).map((row) => {
-            const r = row as { id: string; title?: string; name?: string; updated_at: string };
+            const r = row as unknown as { id: string; title?: string; name?: string; updated_at: string };
             return {
               id: `${s.table}-${r.id}`,
               action: `Updated ${s.label.toLowerCase()} — ${r.title ?? r.name ?? ""}`,
