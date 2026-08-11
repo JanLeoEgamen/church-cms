@@ -2,13 +2,14 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, Clock, Mail, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CTASection } from "@/components/public/CTASection";
-import { ministries } from "@/data/church";
+import { getPublicMinistry } from "@/lib/public.functions";
+import { mapMinistry } from "@/lib/mappers";
 
 export const Route = createFileRoute("/_public/ministries/$id")({
-  loader: ({ params }) => {
-    const ministry = ministries.find((m) => m.id === params.id);
-    if (!ministry) throw notFound();
-    return { ministry };
+  loader: async ({ params }) => {
+    const row = await getPublicMinistry({ data: { slug: params.id } });
+    if (!row) throw notFound();
+    return { ministry: mapMinistry(row) };
   },
   head: ({ loaderData }) => {
     if (!loaderData) {

@@ -2,13 +2,14 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, Calendar, Clock, Mail, MapPin, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CTASection } from "@/components/public/CTASection";
-import { events } from "@/data/church";
+import { getPublicEvent } from "@/lib/public.functions";
+import { mapEvent } from "@/lib/mappers";
 
 export const Route = createFileRoute("/_public/events/$id")({
-  loader: ({ params }) => {
-    const event = events.find((e) => e.id === params.id);
-    if (!event) throw notFound();
-    return { event };
+  loader: async ({ params }) => {
+    const row = await getPublicEvent({ data: { slug: params.id } });
+    if (!row) throw notFound();
+    return { event: mapEvent(row) };
   },
   head: ({ loaderData }) => {
     if (!loaderData) {
