@@ -6,7 +6,9 @@ import { Input } from "@/components/ui/input";
 import { PageHero } from "@/components/public/SectionHeading";
 import { SermonCard } from "@/components/public/Cards";
 import { CTASection } from "@/components/public/CTASection";
-import { images, sermons } from "@/data/church";
+import { useQuery } from "@tanstack/react-query";
+import { images } from "@/data/church";
+import { sermonsQuery } from "@/lib/queries";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/_public/sermons/")({
@@ -28,10 +30,12 @@ export const Route = createFileRoute("/_public/sermons/")({
 function SermonsPage() {
   const [query, setQuery] = useState("");
   const [speaker, setSpeaker] = useState("All Speakers");
-  const featured = sermons.find((s) => s.featured) ?? sermons[0]!;
+  const { data } = useQuery(sermonsQuery());
+  const sermons = data ?? [];
+  const featured = sermons.find((s) => s.featured) ?? sermons[0];
   const speakers = useMemo(
     () => ["All Speakers", ...Array.from(new Set(sermons.map((s) => s.speaker)))],
-    [],
+    [sermons],
   );
 
   const visible = sermons.filter((s) => {
@@ -55,6 +59,8 @@ function SermonsPage() {
       />
 
       <section className="mx-auto max-w-7xl px-5 py-20 lg:px-8">
+        {featured && (
+        <>
         <p className="eyebrow text-accent">Featured Message</p>
         <div className="surface-card mt-6 grid overflow-hidden lg:grid-cols-2">
           <Link
