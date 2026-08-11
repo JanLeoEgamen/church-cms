@@ -8,7 +8,7 @@ import type {
   Ministry,
   Sermon,
   Testimonial,
-} from "@/data/church";
+} from "@/lib/mappers";
 
 export function MinistryCard({ ministry }: { ministry: Ministry }) {
   return (
