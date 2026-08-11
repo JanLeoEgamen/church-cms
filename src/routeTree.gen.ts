@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as PublicRouteImport } from './routes/_public'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as PublicIndexRouteImport } from './routes/_public.index'
 import { Route as PublicAboutRouteImport } from './routes/_public.about'
 import { Route as PublicAnnouncementsRouteImport } from './routes/_public.announcements'
@@ -36,6 +37,11 @@ import { Route as AdminContentHomeRouteImport } from './routes/admin.content.hom
 
 const PublicRoute = PublicRouteImport.update({
   id: '/_public',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PublicIndexRoute = PublicIndexRouteImport.update({
@@ -156,6 +162,7 @@ const AdminContentHomeRoute = AdminContentHomeRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof PublicIndexRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/about': typeof PublicAboutRoute
   '/announcements': typeof PublicAnnouncementsRoute
   '/contact': typeof PublicContactRoute
@@ -180,6 +187,7 @@ export interface FileRoutesByFullPath {
   '/sermons/': typeof PublicSermonsIndexRoute
 }
 export interface FileRoutesByTo {
+  '/reset-password': typeof ResetPasswordRoute
   '/about': typeof PublicAboutRoute
   '/announcements': typeof PublicAnnouncementsRoute
   '/contact': typeof PublicContactRoute
@@ -207,6 +215,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_public': typeof PublicRouteWithChildren
+  '/reset-password': typeof ResetPasswordRoute
   '/_public/about': typeof PublicAboutRoute
   '/_public/announcements': typeof PublicAnnouncementsRoute
   '/_public/contact': typeof PublicContactRoute
@@ -235,6 +244,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/reset-password'
     | '/about'
     | '/announcements'
     | '/contact'
@@ -259,6 +269,7 @@ export interface FileRouteTypes {
     | '/sermons/'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | '/reset-password'
     | '/about'
     | '/announcements'
     | '/contact'
@@ -285,6 +296,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/_public'
+    | '/reset-password'
     | '/_public/about'
     | '/_public/announcements'
     | '/_public/contact'
@@ -312,6 +324,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   PublicRoute: typeof PublicRouteWithChildren
+  ResetPasswordRoute: typeof ResetPasswordRoute
   AdminAnnouncementsRoute: typeof AdminAnnouncementsRoute
   AdminEventsRoute: typeof AdminEventsRoute
   AdminLeadershipRoute: typeof AdminLeadershipRoute
@@ -334,6 +347,13 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: '/'
       preLoaderRoute: typeof PublicRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_public/': {
@@ -531,6 +551,7 @@ const PublicRouteWithChildren =
 
 const rootRouteChildren: RootRouteChildren = {
   PublicRoute: PublicRouteWithChildren,
+  ResetPasswordRoute: ResetPasswordRoute,
   AdminAnnouncementsRoute: AdminAnnouncementsRoute,
   AdminEventsRoute: AdminEventsRoute,
   AdminLeadershipRoute: AdminLeadershipRoute,
