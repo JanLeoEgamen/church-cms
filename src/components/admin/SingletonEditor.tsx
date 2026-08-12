@@ -66,13 +66,16 @@ export function SingletonEditor({
         }
       }
       const existingId = data?.["id"] as string | undefined;
-      if (existingId) {
-        const { error } = await supabase.from(table).update(payload).eq("id", existingId);
-        if (error) throw new Error(error.message);
-      } else {
-        const { error } = await supabase.from(table).insert(payload);
-        if (error) throw new Error(error.message);
-      }
+      const client = supabase.from(table) as unknown as {
+        update: (p: Record<string, string | null>) => {
+          eq: (col: string, val: string) => Promise<{ error: { message: string } | null }>;
+        };
+        insert: (p: Record<string, string | null>) => Promise<{ error: { message: string } | null }>;
+      };
+      const { error } = existingId
+        ? await client.update(payload).eq("id", existingId)
+        : await client.insert(payload);
+      if (error) throw new Error(error.message);
     },
     onSuccess: () => {
       toast.success("Changes saved successfully");
