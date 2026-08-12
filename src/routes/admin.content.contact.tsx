@@ -1,7 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { AdminLayout, AdminPageHeader } from "@/components/admin/AdminLayout";
-import { Field, Panel, SaveBar } from "@/components/admin/ContentManager";
-import { Textarea } from "@/components/ui/textarea";
+import { SingletonEditor } from "@/components/admin/SingletonEditor";
 
 export const Route = createFileRoute("/admin/content/contact")({
   head: () => ({
@@ -19,23 +18,39 @@ export const Route = createFileRoute("/admin/content/contact")({
 function Page() {
   return (
     <AdminLayout>
-      <AdminPageHeader title="Contact Page" description="Update contact details, office hours, and social links." actions={<SaveBar primaryLabel="Save Changes" />} />
-            <Panel title="Church Information">
-        <Field label="Church Name" hint="" />
-        <Field label="Address" hint="" />
-        <Field label="Phone" hint="" />
-        <Field label="Email" hint="" />
-      </Panel>
-      <Panel title="Hours & Map">
-        <Field label="Office Hours" hint="" />
-        <Field label="Map URL" hint="" />
-      </Panel>
-      <Panel title="Social Media">
-        <Field label="Facebook" hint="" />
-        <Field label="Instagram" hint="" />
-        <Field label="YouTube" hint="" />
-      </Panel>
-      <SaveBar primaryLabel="Save Changes" />
+      <AdminPageHeader
+        title="Contact Page"
+        description="Update contact details, office hours, and social links."
+      />
+      <SingletonEditor
+        table="church_settings"
+        sections={[
+          {
+            title: "Church Information",
+            fields: [
+              { name: "church_name", label: "Church Name" },
+              { name: "address", label: "Address" },
+              { name: "phone", label: "Phone" },
+              { name: "email", label: "Email", type: "email" },
+            ],
+          },
+          {
+            title: "Hours & Map",
+            fields: [
+              { name: "office_hours", label: "Office Hours", type: "textarea" },
+              { name: "google_maps_url", label: "Map URL" },
+            ],
+          },
+          {
+            title: "Social Media",
+            fields: [
+              { name: "facebook_url", label: "Facebook" },
+              { name: "instagram_url", label: "Instagram" },
+              { name: "youtube_url", label: "YouTube" },
+            ],
+          },
+        ]}
+      />
     </AdminLayout>
   );
 }
